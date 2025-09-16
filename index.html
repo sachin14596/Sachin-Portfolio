@@ -1,197 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sachin — AI Engineer Portfolio</title>
-  <meta name="description" content="AI Engineer portfolio — RAG, LLMOps, Agents, Data & BI." />
-  <style>
-    :root{ --bg:#0b0d12; --panel:#10131a; --ink:#e8edf2; --muted:#9aa7b2; --brand:#6ee7ff; --accent:#a78bfa; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);} *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{opacity:.9}
-    .container{max-width:980px;margin:0 auto;padding:28px}
-    .nav{display:flex;gap:14px;justify-content:space-between;align-items:center;margin-bottom:18px}
-    .nav .brand{display:flex;gap:12px;align-items:center;font-weight:700}
-    .chip{font-size:12px;color:var(--muted);border:1px solid #1f2430;border-radius:999px;padding:4px 10px}
-    .grid{display:grid;gap:18px}
-    @media(min-width:860px){.grid{grid-template-columns:1.2fr .8fr}}
-    .card{background:linear-gradient(180deg,#121723, #0f131d);border:1px solid #1f2430;border-radius:var(--radius);box-shadow:var(--shadow)}
-    .card .pad{padding:22px}
-    .hero{position:relative;overflow:hidden}
-    .hero h1{font-size:clamp(28px,3.6vw,44px);line-height:1.15;margin:.2rem 0 .6rem}
-    .muted{color:var(--muted)}
-    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .badge{background:#0e121a;border:1px solid #202636;color:#cfe6ff;padding:6px 10px;border-radius:12px;font-size:12px}
-    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid #253042;background:#111826;color:#eef6ff;font-weight:600}
-    .btn.primary{background:linear-gradient(120deg,var(--brand),var(--accent));color:#061018;border:none}
-    .btn:hover{transform:translateY(-1px)}
-    .avatar{width:84px;height:84px;border-radius:50%;background:conic-gradient(from 180deg at 50% 50%, #6ee7ff, #a78bfa, #6ee7ff);padding:2px}
-    .avatar>div{width:100%;height:100%;border-radius:50%;background:#0f1623;display:grid;place-items:center;color:#94a3b8;font-weight:800}
-    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-    .kpi{background:#0d121a;border:1px solid #1e2633;border-radius:12px;padding:10px;text-align:center}
-    .kpi b{font-size:20px}
-    .section h2{margin:0 0 8px;font-size:20px}
-    .project{display:grid;gap:10px;padding:14px;border:1px solid #1d2633;border-radius:12px;background:#0d121a}
-    @media(min-width:620px){.project{grid-template-columns:140px 1fr}}
-    .thumb{aspect-ratio:16/10;border-radius:10px;background:#141b28;border:1px dashed #263146;display:grid;place-items:center;color:#6b7f99;font-size:12px}
-    .skills{display:flex;flex-wrap:wrap;gap:10px}
-    .pill{border:1px solid #243044;background:#0d121a;border-radius:999px;padding:8px 12px;font-size:13px}
-    .footer{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:22px;padding-top:14px;border-top:1px solid #1f2a3c;color:var(--muted)}
-    html{scroll-behavior:smooth}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SACHINFLIX — AI Engineer Portfolio</title>
+<meta name="description" content="Sachin's Netflix‑style portfolio — RAG, LLMOps, Agents, Data & BI." />
+<style>
+  :root{
+    --bg:#000; --ink:#e5e5e5; --muted:#b3b3b3; --brand:#e50914; --card:#141414; --chip:#2a2a2a;
+    --radius:10px; --shadow:0 10px 30px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:20px;padding:14px 3vw;background:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,.2),rgba(0,0,0,0));}
+  .logo{font-weight:900;letter-spacing:.5px;color:var(--brand);font-size:24px}
+  .nav a{color:#fff;opacity:.9}
+  .nav a:hover{opacity:1}
+  .nav .links{display:flex;gap:18px;margin-left:10px}
+  .spacer{flex:1}
+  .search{background:#111;border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:8px;color:#bbb}
+  .avatar{width:32px;height:32px;border-radius:4px;background:#222;display:grid;place-items:center;font-weight:800}
+
+  /* HERO billboard */
+  .hero{position:relative;min-height:64vh;padding:14vh 3vw 8vh;background:radial-gradient(1200px 600px at 20% 10%,rgba(229,9,20,.28),transparent 60%),url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221920%22 height=%201080%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop stop-color=%22%23000%22/><stop offset=%221%22 stop-color=%22%23141414%22/></linearGradient></defs><rect width=%22100%25%22 height=%22100%25%22 fill=%22url(%23g)%22/></svg>') center/cover no-repeat;}
+  .hero .title{font-size:clamp(28px,5vw,54px);font-weight:900;letter-spacing:.3px;margin:0 0 6px}
+  .hero .tagline{max-width:860px;color:#ddd;margin:0 0 16px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#000;border:none;border-radius:6px;padding:10px 16px;font-weight:700}
+  .btn.secondary{background:rgba(109,109,110,.7);color:#fff}
+  .label{background:var(--brand);color:#fff;border-radius:4px;padding:3px 7px;font-size:12px;font-weight:800;margin-right:8px}
+
+  /* ROWS */
+  .row{position:relative;margin:0 0 28px;padding:0 3vw}
+  .row h2{font-size:18px;margin:0 0 10px}
+  .rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(170px,22vw,260px);gap:8px;overflow:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+  .rail::-webkit-scrollbar{height:8px}
+  .rail::-webkit-scrollbar-thumb{background:#222;border-radius:999px}
+
+  .card{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#222;box-shadow:var(--shadow);scroll-snap-align:start}
+  .card .art{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.92)}
+  .card::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -60px 60px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.06)}
+  .card:hover .art{transform:scale(1.03)}
+  .card .meta{position:absolute;left:8px;right:8px;bottom:8px;font-size:12px;color:#ddd;display:flex;flex-direction:column;gap:4px}
+  .card .meta .name{font-weight:800;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 8px}
+
+  /* INFO POP */
+  dialog{background:#0f0f0f;color:#fff;border:1px solid #2a2a2a;border-radius:10px;max-width:min(820px,92vw);box-shadow:var(--shadow)}
+  dialog::backdrop{background:rgba(0,0,0,.6)}
+  .d-body{display:grid;gap:16px;padding:16px}
+  .d-top{display:flex;justify-content:space-between;align-items:center}
+  .close{background:#222;border:1px solid #333;color:#fff;border-radius:6px;padding:6px 10px}
+  .stack{display:flex;flex-wrap:wrap;gap:8px}
+
+  /* FOOTER */
+  .footer{color:#777;padding:24px 3vw;border-top:1px solid #111}
+
+  @media (hover:hover){.card{transition:transform .25s}.card:hover{transform:translateY(-3px)}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="nav">
-      <div class="brand">
-        <div class="avatar"><div>S</div></div>
-        <div>
-          <div style="font-weight:700">Sachin</div>
-          <div class="muted" style="font-size:13px">AI Engineer • Data • LLMOps</div>
-        </div>
-      </div>
-      <div class="muted" style="display:flex;gap:10px;align-items:center">
-        <a class="chip" href="#projects">Projects</a>
-        <a class="chip" href="#skills">Skills</a>
-        <a class="chip" href="#contact">Contact</a>
-      </div>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Primary">
+    <div class="logo">SACHINFLIX</div>
+    <div class="links">
+      <a href="#featured">Home</a>
+      <a href="#ai">AI</a>
+      <a href="#data">Data & BI</a>
+      <a href="#xp">Experience</a>
+      <a href="#contact">Contact</a>
     </div>
+    <div class="spacer"></div>
+    <div class="search" role="search"><span>🔎</span><input aria-label="Search" placeholder="Search projects" style="background:transparent;border:none;outline:none;color:#fff;width:160px"></div>
+    <div class="avatar" title="Sachin">S</div>
+  </nav>
 
-    <div class="grid">
-      <section class="card hero">
-        <div class="pad">
-          <p class="chip" style="display:inline-flex;gap:8px;align-items:center">Open to AI Engineer roles <span aria-hidden>•</span> Remote/UK</p>
-          <h1>Designing and shipping AI systems end‑to‑end: RAG, LLMOps, agentic workflows, and production ML.</h1>
-          <p class="muted">Hands‑on with Retrieval‑Augmented Generation, Bedrock, LangGraph, FAISS, evaluations, and Power BI for decision‑grade analytics.</p>
-          <div class="btns">
-            <a class="btn primary" href="#contact">Contact me</a>
-            <a class="btn" href="#projects">See projects</a>
-            <a class="btn" href="mailto:sachinuk145@gmail.com">Email</a>
-          </div>
-          <div class="badges">
-            <span class="badge">Full UK Right to Work</span>
-            <span class="badge">MSc Big Data Analytics (Distinction)</span>
-            <span class="badge">AI Engineering • RAG • LLMOps</span>
-          </div>
-          <div class="kpis">
-            <div class="kpi"><b>4.5+</b><div class="muted">years experience</div></div>
-            <div class="kpi"><b>AI</b><div class="muted">RAG • LLMOps • Agents</div></div>
-            <div class="kpi"><b>UK</b><div class="muted">Sheffield‑based</div></div>
-          </div>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div class="pad section">
-          <h2>Quick Links</h2>
-          <div style="display:grid;gap:10px">
-            <a class="project" href="#projects" rel="noreferrer">
-              <div class="thumb">Project image</div>
-              <div>
-                <div style="font-weight:600">Medical Case Analysis RAG (Dissertation)</div>
-                <div class="muted">Bio_ClinicalBERT + FAISS • MedLlama‑3‑8B</div>
-              </div>
-            </a>
-            <a class="project" href="#projects" rel="noreferrer">
-              <div class="thumb">Project image</div>
-              <div>
-                <div style="font-weight:600">Web Social Media Analytics (NLP + Graph)</div>
-                <div class="muted">500K+ tweets • Topic modeling • Network analysis</div>
-              </div>
-            </a>
-            <a class="project" href="#projects" rel="noreferrer">
-              <div class="thumb">Project image</div>
-              <div>
-                <div style="font-weight:600">Tender Automation (RPA + RAG)</div>
-                <div class="muted">OCR • Categorization • Doc Q&A</div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </aside>
+  <!-- HERO / billboard -->
+  <header class="hero" id="featured">
+    <div class="label">FEATURED</div>
+    <h1 class="title">Medical Case Analysis — RAG System</h1>
+    <p class="tagline">Domain‑tuned RAG: Bio_ClinicalBERT + FAISS retrieval • MedLlama‑3‑8B generation • evals (similarity/BLEU/ROUGE) • reduced hallucinations for NHS‑style cases.</p>
+    <div class="btns">
+      <a class="btn" href="#ai">▶ Play Demo</a>
+      <button class="btn secondary" data-open="sheet-rag">ℹ More Info</button>
     </div>
+  </header>
 
-    <section id="projects" class="card section" style="margin-top:18px">
-      <div class="pad">
-        <h2>Featured Projects</h2>
-        <div class="project">
-          <div class="thumb">16:10 preview</div>
-          <div>
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
-              <div>
-                <div style="font-weight:700">Medical Case Analysis RAG System</div>
-                <div class="muted">Bio_ClinicalBERT retrieval (FAISS) • MedLlama‑3‑8B generation • GPU‑accelerated</div>
-              </div>
-            </div>
-            <p style="margin:8px 0 0">Domain‑specific RAG replacing general models with evaluation improvements in similarity and BLEU/ROUGE, reducing hallucinations on NHS‑format case data.</p>
+  <!-- ROWS / rails -->
+  <section class="row" id="ai" aria-label="AI & LLMOps">
+    <h2>AI & LLMOps</h2>
+    <div class="rail">
+      <!-- card: RAG -->
+      <article class="card" data-open="sheet-rag">
+        <div class="art" style="background-image:linear-gradient(120deg,#7c1,#141414), url('');"></div>
+        <div class="meta">
+          <div class="name">RAG Assistant on Bedrock</div>
+          <div class="stack">
+            <span class="pill">LangGraph</span>
+            <span class="pill">FAISS on S3</span>
+            <span class="pill">Guardrails</span>
           </div>
         </div>
-        <div class="project">
-          <div class="thumb">16:10 preview</div>
-          <div>
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
-              <div>
-                <div style="font-weight:700">Web Social Media Analytics</div>
-                <div class="muted">NLP pipeline • Topic modeling (LDA/LSI) • Graph centrality (NetworkX)</div>
-              </div>
-            </div>
-            <p style="margin:8px 0 0">Analyzed 500K+ tweets for sentiment/misinformation; trained classifiers (LogReg, SVM, LSTM) and mapped influencer networks to expose high‑impact nodes.</p>
+      </article>
+      <!-- card: Agents -->
+      <article class="card" data-open="sheet-agents">
+        <div class="art" style="background-image:linear-gradient(120deg,#e50914,#141414);"></div>
+        <div class="meta">
+          <div class="name">Agentic Workflows</div>
+          <div class="stack">
+            <span class="pill">CrewAI</span>
+            <span class="pill">Tools</span>
+            <span class="pill">Eval</span>
           </div>
         </div>
-        <div class="project">
-          <div class="thumb">16:10 preview</div>
-          <div>
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
-              <div>
-                <div style="font-weight:700">Tender Automation with RPA + RAG</div>
-                <div class="muted">OCR • Doc extraction/categorization • LLM chatbot</div>
-              </div>
-            </div>
-            <p style="margin:8px 0 0">Automated document processing and Q&A, enabling major manual effort reduction and higher throughput in daily applications.</p>
+      </article>
+      <!-- card: Tender RPA + RAG -->
+      <article class="card" data-open="sheet-tender">
+        <div class="art" style="background-image:linear-gradient(120deg,#0af,#141414);"></div>
+        <div class="meta">
+          <div class="name">Tender Automation (RPA + RAG)</div>
+          <div class="stack">
+            <span class="pill">OCR</span>
+            <span class="pill">Categorize</span>
+            <span class="pill">Q&A</span>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="skills" class="card section" style="margin-top:18px">
-      <div class="pad">
-        <h2>Skills</h2>
-        <div class="skills">
-          <span class="pill">RAG • LLMOps • Agents</span>
-          <span class="pill">LangChain • LangGraph</span>
-          <span class="pill">Python • FastAPI • Streamlit</span>
-          <span class="pill">SQL • PySpark • Databricks</span>
-          <span class="pill">Power BI • DAX</span>
-          <span class="pill">TensorFlow • PyTorch</span>
-          <span class="pill">AWS: Bedrock • ECR • SageMaker</span>
-          <span class="pill">Docker • Git • CI/CD</span>
+      </article>
+      <!-- card: Fine‑tuning -->
+      <article class="card" data-open="sheet-ft">
+        <div class="art" style="background-image:linear-gradient(120deg,#f80,#141414);"></div>
+        <div class="meta">
+          <div class="name">Task‑Tuned Models</div>
+          <div class="stack">
+            <span class="pill">LoRA</span>
+            <span class="pill">SFT</span>
+            <span class="pill">Eval</span>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="contact" class="card section" style="margin-top:18px">
-      <div class="pad">
-        <h2>Contact</h2>
-        <p class="muted">Best ways to reach me. I respond quickly.</p>
-        <div class="btns">
-          <a class="btn" href="mailto:sachinuk145@gmail.com">📧 Email</a>
-          <a class="btn" href="https://wa.me/919013586896" target="_blank" rel="noreferrer">💬 WhatsApp</a>
-          <a class="btn" href="https://www.linkedin.com/in/sachin-14/" target="_blank" rel="noreferrer"> LinkedIn</a>
-          <a class="btn" href="https://github.com/sachin14596" target="_blank" rel="noreferrer"> GitHub</a>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">
-      <div>© <span id="y"></span> Sachin</div>
-      <div class="muted">Built with plain HTML/CSS • Free hosting</div>
+      </article>
     </div>
-  </div>
+  </section>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  <section class="row" id="data" aria-label="Data & BI">
+    <h2>Data & BI</h2>
+    <div class="rail">
+      <article class="card" data-open="sheet-bi">
+        <div class="art" style="background-image:linear-gradient(120deg,#6a5acd,#141414);"></div>
+        <div class="meta">
+          <div class="name">Finance KPI Dashboard</div>
+          <div class="stack">
+            <span class="pill">Power BI</span>
+            <span class="pill">DAX</span>
+            <span class="pill">Modeling</span>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-open="sheet-social">
+        <div class="art" style="background-image:linear-gradient(120deg,#19b17a,#141414);"></div>
+        <div class="meta">
+          <div class="name">Web Social Media Analytics</div>
+          <div class="stack">
+            <span class="pill">NLP</span>
+            <span class="pill">Graph</span>
+            <span class="pill">LSTM</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="row" id="xp" aria-label="Experience">
+    <h2>Experience</h2>
+    <div class="rail">
+      <article class="card" data-open="sheet-prestige">
+        <div class="art" style="background-image:linear-gradient(120deg,#ff4d4d,#141414);"></div>
+        <div class="meta">
+          <div class="name">Prestige Windows — Data Engineer</div>
+          <span class="pill">ETL</span> <span class="pill">Power BI</span> <span class="pill">+40% sales</span>
+        </div>
+      </article>
+      <article class="card" data-open="sheet-q3">
+        <div class="art" style="background-image:linear-gradient(120deg,#00a1ff,#141414);"></div>
+        <div class="meta">
+          <div class="name">Q3 Technologies — Data & BI</div>
+          <span class="pill">RAG</span> <span class="pill">Automation</span> <span class="pill">1M+ rows</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+      <a class="btn" href="mailto:sachinuk145@gmail.com">📧 Email</a>
+      <a class="btn secondary" href="https://wa.me/919013586896" target="_blank">💬 WhatsApp</a>
+      <a class="btn secondary" href="https://www.linkedin.com/in/sachin-14/" target="_blank"> LinkedIn</a>
+      <a class="btn secondary" href="https://github.com/sachin14596" target="_blank"> GitHub</a>
+      <a class="btn" href="Sachin_AI.pdf" target="_blank">⬇ CV</a>
+    </div>
+    <div style="margin-top:10px;color:#777">© <span id="y"></span> Sachin • Netflix‑style portfolio</div>
+  </footer>
+
+  <!-- MODALS (project sheets) -->
+  <dialog id="sheet-rag"><div class="d-body"><div class="d-top"><h3>RAG Assistant on AWS Bedrock</h3><button class="close" data-close>Close</button></div><p>End‑to‑end RAG with S3‑persisted FAISS, prompt catalog/versioning, mini‑evals, human feedback loop, Bedrock Guardrails, and ECS/ECR deployment with CI/CD.</p><div class="stack"><span class="pill">LangGraph</span><span class="pill">Titan Embeddings</span><span class="pill">CloudWatch</span><span class="pill">EventBridge</span></div></div></dialog>
+  <dialog id="sheet-agents"><div class="d-body"><div class="d-top"><h3>Agentic Workflows</h3><button class="close" data-close>Close</button></div><p>Multi‑tool agents for retrieval, web actions, and structured outputs with eval harness & guardrails.</p></div></dialog>
+  <dialog id="sheet-tender"><div class="d-body"><div class="d-top"><h3>Tender Automation (RPA + RAG)</h3><button class="close" data-close>Close</button></div><p>OCR + categorization + doc Q&A; reduced manual effort and cycle time substantially.</p></div></dialog>
+  <dialog id="sheet-ft"><div class="d-body"><div class="d-top"><h3>Task‑Tuned Models</h3><button class="close" data-close>Close</button></div><p>LoRA/SFT for targeted tasks with quality gates (BLEU/ROUGE, factuality checks).</p></div></dialog>
+  <dialog id="sheet-bi"><div class="d-body"><div class="d-top"><h3>Finance KPI Dashboard</h3><button class="close" data-close>Close</button></div><p>Board‑friendly EBITDA, GP, stock movement with drill‑downs; DAX measures and star‑schema modeling.</p></div></dialog>
+  <dialog id="sheet-social"><div class="d-body"><div class="d-top"><h3>Web Social Media Analytics</h3><button class="close" data-close>Close</button></div><p>500K+ tweets; topic modeling + network centrality; classifiers up to 96.9% accuracy.</p></div></dialog>
+  <dialog id="sheet-prestige"><div class="d-body"><div class="d-top"><h3>Prestige Windows — Data Engineer</h3><button class="close" data-close>Close</button></div><p>Automated PDF/web extraction, Power BI dashboards; sales ↑ ~40%.</p></div></dialog>
+  <dialog id="sheet-q3"><div class="d-body"><div class="d-top"><h3>Q3 Technologies — Data & BI</h3><button class="close" data-close>Close</button></div><p>RAG chatbot, tender automation, OpenAI‑MySQL integration, sentiment models; optimized ETL for 1M+ rows.</p></div></dialog>
+
+<script>
+  // year
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+  // open/close dialogs
+  const openers=[...document.querySelectorAll('[data-open]')];
+  const closers=[...document.querySelectorAll('[data-close]')];
+  openers.forEach(el=>el.addEventListener('click',()=>document.getElementById(el.dataset.open).showModal()))
+  closers.forEach(el=>el.addEventListener('click',()=>el.closest('dialog').close()))
+
+  // little keyboard nav for rails
+  document.querySelectorAll('.rail').forEach(rail=>{
+    rail.addEventListener('keydown',e=>{
+      const step=rail.clientWidth*0.9; if(e.key==='ArrowRight'){rail.scrollBy({left:step,behavior:'smooth'})}
+      if(e.key==='ArrowLeft'){rail.scrollBy({left:-step,behavior:'smooth'})}
+    });
+    rail.tabIndex=0; // make focusable
+  })
+</script>
 </body>
 </html>
