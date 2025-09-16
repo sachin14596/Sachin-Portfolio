@@ -1,136 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SACHINFLIX — Sachin's Portfolio</title>
-<meta name="description" content="Netflix-style portfolio — AI, LLMOps, RAG, Data & BI." />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sachin — Portfolio</title>
+<meta name="description" content="Sachin • AI Engineer — RAG, LLMOps, Data"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#000;--ink:#e5e5e5;--muted:#b3b3b3;--brand:#e50914;--card:#141414;}
-  *{box-sizing:border-box} html,body{margin:0;background:#000;color:var(--ink);font:15px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-  a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+  :root{--bg:#0a0a0a;--ink:#f5f5f5;--muted:#9a9a9a;--accent:#fff;--brand:#0ff;--grid:#1a1a1a}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
+  a{color:inherit;text-decoration:none}
+  .wrap{padding:28px clamp(16px,4vw,48px)}
   /* NAV */
-  .nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:20px;padding:14px 3vw;background:linear-gradient(180deg,rgba(0,0,0,.85),rgba(0,0,0,.2),rgba(0,0,0,0));}
-  .logo{font-weight:900;letter-spacing:.6px;color:var(--brand);font-size:26px}
-  .links{display:flex;gap:18px} .links a{opacity:.85} .links a:hover{opacity:1}
-  .spacer{flex:1}
-  .pill{background:#111;border:1px solid #222;border-radius:6px;padding:6px 10px;color:#bbb}
-  .avatar{width:32px;height:32px;border-radius:4px;background:#222;display:grid;place-items:center;font-weight:800}
+  .nav{position:fixed;inset:0 0 auto 0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);background:linear-gradient(180deg,rgba(0,0,0,.65),transparent);backdrop-filter:saturate(120%) blur(6px);z-index:50}
+  .logo{font-weight:900;letter-spacing:.06em}
+  .nav .links{display:flex;gap:20px;text-transform:uppercase;font-size:12px;letter-spacing:.16em}
+  .chip{border:1px solid #2a2a2a;border-radius:999px;padding:6px 10px;color:#bbb}
+  .cursor{position:fixed;top:0;left:0;width:18px;height:18px;border:1px solid #999;border-radius:50%;pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);z-index:100}
+
   /* HERO */
-  .hero{position:relative;min-height:66vh;padding:18vh 3vw 10vh;background:
-    radial-gradient(900px 420px at 20% 0%, rgba(229,9,20,.32), transparent 60%),
-    linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.05) 40%, rgba(0,0,0,.8) 80%),
-    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;}
-  .hero .label{display:inline-block;background:var(--brand);color:#fff;border-radius:4px;padding:3px 8px;font-size:12px;font-weight:800;margin-bottom:8px}
-  .hero h1{font-size:clamp(28px,5vw,56px);font-weight:900;letter-spacing:.3px;margin:0 0 8px}
-  .hero p{max-width:840px;color:#ddd;margin:0 0 16px}
-  .btns{display:flex;gap:10px;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:10px;border:none;border-radius:6px;padding:12px 18px;font-weight:800}
-  .btn.play{background:#fff;color:#000} .btn.more{background:rgba(109,109,110,.7);color:#fff}
-  /* ROWS */
-  .row{margin:0 0 28px;padding:0 3vw}
-  .row h2{font-size:18px;margin:0 0 10px}
-  .rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(170px,22vw,260px);gap:10px;overflow:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
-  .rail::-webkit-scrollbar{height:8px} .rail::-webkit-scrollbar-thumb{background:#222;border-radius:999px}
-  .card{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#222;scroll-snap-align:start;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-  .art{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.92)}
-  .card::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -60px 60px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.06)}
-  .meta{position:absolute;left:8px;right:8px;bottom:8px;font-size:12px;color:#ddd;display:flex;flex-direction:column;gap:4px}
-  .name{font-weight:900;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.8)}
-  .tag{display:inline-flex;gap:6px;background:rgba(255,255,255,.12);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 8px}
+  .hero{min-height:90vh;display:grid;align-content:end;padding-top:10vh}
+  .eyebrow{color:#bdbdbd;text-transform:uppercase;letter-spacing:.22em;font-size:12px;margin-bottom:12px}
+  .display{font-family:"Playfair Display",serif;font-weight:900;line-height:0.95;font-size:clamp(42px,9vw,108px);letter-spacing:-.02em}
+  .desc{max-width:900px;color:#cfcfcf;margin-top:18px}
+  .cta{display:flex;gap:12px;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #2a2a2a;padding:12px 16px;border-radius:999px}
+  .btn.primary{background:#fff;color:#000;border:none;font-weight:800}
+
+  /* MARQUEE */
+  .marquee{overflow:hidden;border-block:1px solid #111;background:#0e0e0e}
+  .track{display:flex;gap:40px;white-space:nowrap;will-change:transform;animation:scroll 28s linear infinite}
+  .track span{font-size:clamp(24px,3.2vw,40px);font-weight:900;letter-spacing:.06em;color:#dcdcdc;padding:14px 0}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* GRID SECTION */
+  .section{padding:64px 0;border-bottom:1px solid #111}
+  .section h2{margin:0 0 18px;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:#bdbdbd}
+  .grid{display:grid;gap:16px}
+  @media(min-width:960px){.grid{grid-template-columns:1.1fr .9fr;gap:20px}}
+  .card{position:relative;background:#101010;border:1px solid #1a1a1a;border-radius:16px;overflow:hidden}
+  .card .media{aspect-ratio:16/9;background:linear-gradient(180deg,#151515,#0d0d0d);display:grid;place-items:center;color:#7a7a7a;font-size:12px}
+  .card .pad{padding:18px}
+  .card h3{margin:0 0 6px;font-size:clamp(18px,2.5vw,28px)}
+  .muted{color:#a9a9a9}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .tag{border:1px solid #252525;border-radius:999px;padding:6px 10px;font-size:12px;color:#c9c9c9}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.on{opacity:1;transform:none}
+
+  /* SPLIT ABOUT */
+  .about{display:grid;gap:20px}
+  @media(min-width:1000px){.about{grid-template-columns:1fr 1fr}}
+  .sticky{position:sticky;top:96px;align-self:start}
+  .lead{font-family:"Playfair Display",serif;font-size:clamp(28px,4.8vw,54px);line-height:1}
+
   /* FOOTER */
-  footer{color:#777;padding:24px 3vw;border-top:1px solid #111;text-align:left}
-  @media(hover:hover){.card{transition:transform .25s}.card:hover{transform:translateY(-3px)}}
+  .footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;color:#8a8a8a;padding:22px 0}
 </style>
 </head>
 <body>
-  <!-- NAV -->
+  <div class="cursor" aria-hidden></div>
   <nav class="nav">
-    <div class="logo">SACHINFLIX</div>
+    <div class="logo">SACHIN</div>
     <div class="links">
-      <a href="#home">Home</a><a href="#ai">AI</a><a href="#data">Data & BI</a><a href="#xp">Experience</a><a href="#contact">Contact</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class="spacer"></div>
-    <div class="pill">🔎 Search</div>
-    <div class="avatar" title="Sachin">S</div>
+    <a class="chip" href="Sachin_AI.pdf" target="_blank">CV</a>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero" id="home">
-    <span class="label">FEATURED</span>
-    <h1>Medical Case Analysis — RAG System</h1>
-    <p>Domain-tuned RAG: Bio_ClinicalBERT + FAISS retrieval • MedLlama-3-8B generation • evals (similarity/BLEU/ROUGE) • reduced hallucinations for NHS-style cases.</p>
-    <div class="btns">
-      <a class="btn play" href="#ai">▶ Play Demo</a>
-      <a class="btn more" href="#contact">ℹ More Info</a>
-    </div>
-  </header>
+  <main class="wrap">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="eyebrow">AI Engineer • LLMOps • RAG</div>
+      <h1 class="display">I design, build and ship intelligent products.</h1>
+      <p class="desc">End‑to‑end systems: Retrieval‑Augmented Generation, agentic workflows, evals, and production‑grade orchestration on AWS. I like simple interfaces, robust data plumbing, and measurable outcomes.</p>
+      <div class="cta">
+        <a class="btn primary" href="#work">See Work</a>
+        <a class="btn" href="mailto:sachinuk145@gmail.com">Contact</a>
+      </div>
+    </header>
+  </main>
 
-  <!-- ROW: AI -->
-  <section class="row" id="ai" aria-label="AI & LLMOps">
-    <h2>AI & LLMOps</h2>
-    <div class="rail">
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#e50914,#141414);"></div>
-        <div class="meta"><div class="name">RAG Assistant on Bedrock</div><div><span class="tag">LangGraph</span> <span class="tag">FAISS on S3</span> <span class="tag">Guardrails</span></div></div>
+  <!-- MARQUEE STRIP -->
+  <section class="marquee" aria-label="Highlights">
+    <div class="track">
+      <span>RAG</span><span>LLMOps</span><span>Agents</span><span>Power BI</span><span>Databricks</span><span>Bedrock</span>
+      <span>RAG</span><span>LLMOps</span><span>Agents</span><span>Power BI</span><span>Databricks</span><span>Bedrock</span>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="wrap section">
+    <h2>Selected Work</h2>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="media">Hero graphic</div>
+        <div class="pad">
+          <h3>Medical Case Analysis — RAG</h3>
+          <p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama‑3‑8B generation • evals (similarity/BLEU/ROUGE) • fewer hallucinations on NHS‑style cases.</p>
+          <div class="tags"><span class="tag">LangGraph</span><span class="tag">Titan Embeddings</span><span class="tag">Guardrails</span></div>
+        </div>
       </article>
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#0af,#141414);"></div>
-        <div class="meta"><div class="name">Tender Automation (RPA + RAG)</div><div><span class="tag">OCR</span> <span class="tag">Categorize</span> <span class="tag">Q&A</span></div></div>
+      <article class="card reveal">
+        <div class="media">Preview</div>
+        <div class="pad">
+          <h3>Web Social Media Analytics</h3>
+          <p class="muted">500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy to surface misinformation clusters.</p>
+          <div class="tags"><span class="tag">NLP</span><span class="tag">Graph</span><span class="tag">LSTM</span></div>
+        </div>
       </article>
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#f80,#141414);"></div>
-        <div class="meta"><div class="name">Task-Tuned Models</div><div><span class="tag">LoRA</span> <span class="tag">SFT</span> <span class="tag">Eval</span></div></div>
+      <article class="card reveal">
+        <div class="media">Preview</div>
+        <div class="pad">
+          <h3>Tender Automation (RPA + RAG)</h3>
+          <p class="muted">OCR → categorize → doc Q&A; automated triage and replies; major reduction in cycle time and manual effort.</p>
+          <div class="tags"><span class="tag">OCR</span><span class="tag">Q&A</span><span class="tag">Automation</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="media">Preview</div>
+        <div class="pad">
+          <h3>Finance KPI Dashboard</h3>
+          <p class="muted">Board‑friendly EBITDA, GP, stock movement dashboards with DAX measures, star‑schema modeling, and drill‑downs.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Modeling</span></div>
+        </div>
       </article>
     </div>
   </section>
 
-  <!-- ROW: Data -->
-  <section class="row" id="data" aria-label="Data & BI">
-    <h2>Data & BI</h2>
-    <div class="rail">
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#6a5acd,#141414);"></div>
-        <div class="meta"><div class="name">Finance KPI Dashboard</div><div><span class="tag">Power BI</span> <span class="tag">DAX</span> <span class="tag">Modeling</span></div></div>
-      </article>
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#19b17a,#141414);"></div>
-        <div class="meta"><div class="name">Web Social Media Analytics</div><div><span class="tag">NLP</span> <span class="tag">Graph</span> <span class="tag">LSTM</span></div></div>
-      </article>
+  <!-- ABOUT (split, sticky copy) -->
+  <section id="about" class="wrap section about">
+    <div class="sticky">
+      <h2>About</h2>
+      <p class="lead">Practical AI, minimal UI, dependable delivery.</p>
+    </div>
+    <div>
+      <p class="muted">4.5+ years across data engineering, analytics, and applied ML. I build with Python, LangChain/LangGraph, AWS (Bedrock, ECR), and ship with guardrails, evals, and CI/CD. I also translate outcomes into clear dashboards and docs for stakeholders.</p>
+      <p class="muted">Based in Sheffield. Available for AI Engineer roles and selective freelance.</p>
+      <div class="tags"><span class="tag">RAG</span><span class="tag">Agents</span><span class="tag">Bedrock</span><span class="tag">FastAPI</span><span class="tag">Power BI</span></div>
     </div>
   </section>
 
-  <!-- ROW: Experience -->
-  <section class="row" id="xp" aria-label="Experience">
-    <h2>Experience</h2>
-    <div class="rail">
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#ff4d4d,#141414);"></div>
-        <div class="meta"><div class="name">Prestige Windows — Data Engineer</div><div><span class="tag">ETL</span> <span class="tag">Power BI</span> <span class="tag">+40% sales</span></div></div>
-      </article>
-      <article class="card"><div class="art" style="background-image:linear-gradient(120deg,#00a1ff,#141414);"></div>
-        <div class="meta"><div class="name">Q3 Technologies — Data & BI</div><div><span class="tag">RAG</span> <span class="tag">Automation</span> <span class="tag">1M+ rows</span></div></div>
-      </article>
+  <!-- CONTACT -->
+  <section id="contact" class="wrap section">
+    <h2>Contact</h2>
+    <div class="cta">
+      <a class="btn primary" href="mailto:sachinuk145@gmail.com">Email</a>
+      <a class="btn" href="https://wa.me/919013586896" target="_blank">WhatsApp</a>
+      <a class="btn" href="https://www.linkedin.com/in/sachin-14/" target="_blank">LinkedIn</a>
+      <a class="btn" href="Sachin_AI.pdf" target="_blank">Download CV</a>
     </div>
   </section>
 
-  <!-- FOOTER / CONTACT -->
-  <footer id="contact">
-    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
-      <a class="btn play" href="mailto:sachinuk145@gmail.com">📧 Email</a>
-      <a class="btn more" href="https://wa.me/919013586896" target="_blank">💬 WhatsApp</a>
-      <a class="btn more" href="https://www.linkedin.com/in/sachin-14/" target="_blank"> LinkedIn</a>
-      <a class="btn more" href="https://github.com/sachin14596" target="_blank"> GitHub</a>
-      <a class="btn play" href="Sachin_AI.pdf" target="_blank">⬇ CV</a>
-    </div>
-    <div style="margin-top:12px;color:#777">© <span id="y"></span> Sachin • Netflix-style portfolio</div>
+  <footer class="wrap footer">
+    <div>© <span id="y"></span> Sachin</div>
+    <div class="muted">Built with HTML/CSS • No frameworks</div>
   </footer>
 
 <script>
+  // current year
   document.getElementById('y').textContent=new Date().getFullYear();
-  // keyboard left/right scroll for rails
-  document.querySelectorAll('.rail').forEach(rail=>{
-    rail.tabIndex=0;
-    rail.addEventListener('keydown',e=>{
-      const step=rail.clientWidth*0.9;
-      if(e.key==='ArrowRight') rail.scrollBy({left:step,behavior:'smooth'});
-      if(e.key==='ArrowLeft')  rail.scrollBy({left:-step,behavior:'smooth'});
-    });
-  });
+
+  // simple cursor
+  const c=document.querySelector('.cursor');
+  window.addEventListener('mousemove',e=>{c.style.top=e.clientY+'px';c.style.left=e.clientX+'px'});
+
+  // reveal on scroll
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(el=>{
+      if(el.isIntersecting){el.target.classList.add('on');io.unobserve(el.target)}
+    })
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // marquee: duplicate track for seamless scroll
+  const track=document.querySelector('.track');
+  track.innerHTML+=track.innerHTML;
 </script>
 </body>
 </html>
