@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sachin — AI Engineer Portfolio</title>
+  <meta name="description" content="AI Engineer portfolio — RAG, LLMOps, Agents, Data & BI." />
+  <style>
+    :root{ --bg:#0b0d12; --panel:#10131a; --ink:#e8edf2; --muted:#9aa7b2; --brand:#6ee7ff; --accent:#a78bfa; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);} *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{opacity:.9}
+    .container{max-width:980px;margin:0 auto;padding:28px}
+    .nav{display:flex;gap:14px;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .nav .brand{display:flex;gap:12px;align-items:center;font-weight:700}
+    .chip{font-size:12px;color:var(--muted);border:1px solid #1f2430;border-radius:999px;padding:4px 10px}
+    .grid{display:grid;gap:18px}
+    @media(min-width:860px){.grid{grid-template-columns:1.2fr .8fr}}
+    .card{background:linear-gradient(180deg,#121723, #0f131d);border:1px solid #1f2430;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card .pad{padding:22px}
+    .hero{position:relative;overflow:hidden}
+    .hero h1{font-size:clamp(28px,3.6vw,44px);line-height:1.15;margin:.2rem 0 .6rem}
+    .muted{color:var(--muted)}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .badge{background:#0e121a;border:1px solid #202636;color:#cfe6ff;padding:6px 10px;border-radius:12px;font-size:12px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid #253042;background:#111826;color:#eef6ff;font-weight:600}
+    .btn.primary{background:linear-gradient(120deg,var(--brand),var(--accent));color:#061018;border:none}
+    .btn:hover{transform:translateY(-1px)}
+    .avatar{width:84px;height:84px;border-radius:50%;background:conic-gradient(from 180deg at 50% 50%, #6ee7ff, #a78bfa, #6ee7ff);padding:2px}
+    .avatar>div{width:100%;height:100%;border-radius:50%;background:#0f1623;display:grid;place-items:center;color:#94a3b8;font-weight:800}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .kpi{background:#0d121a;border:1px solid #1e2633;border-radius:12px;padding:10px;text-align:center}
+    .kpi b{font-size:20px}
+    .section h2{margin:0 0 8px;font-size:20px}
+    .project{display:grid;gap:10px;padding:14px;border:1px solid #1d2633;border-radius:12px;background:#0d121a}
+    @media(min-width:620px){.project{grid-template-columns:140px 1fr}}
+    .thumb{aspect-ratio:16/10;border-radius:10px;background:#141b28;border:1px dashed #263146;display:grid;place-items:center;color:#6b7f99;font-size:12px}
+    .skills{display:flex;flex-wrap:wrap;gap:10px}
+    .pill{border:1px solid #243044;background:#0d121a;border-radius:999px;padding:8px 12px;font-size:13px}
+    .footer{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:22px;padding-top:14px;border-top:1px solid #1f2a3c;color:var(--muted)}
+    html{scroll-behavior:smooth}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="avatar"><div>S</div></div>
+        <div>
+          <div style="font-weight:700">Sachin</div>
+          <div class="muted" style="font-size:13px">AI Engineer • Data • LLMOps</div>
+        </div>
+      </div>
+      <div class="muted" style="display:flex;gap:10px;align-items:center">
+        <a class="chip" href="#projects">Projects</a>
+        <a class="chip" href="#skills">Skills</a>
+        <a class="chip" href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="card hero">
+        <div class="pad">
+          <p class="chip" style="display:inline-flex;gap:8px;align-items:center">Open to AI Engineer roles <span aria-hidden>•</span> Remote/UK</p>
+          <h1>Designing and shipping AI systems end‑to‑end: RAG, LLMOps, agentic workflows, and production ML.</h1>
+          <p class="muted">Hands‑on with Retrieval‑Augmented Generation, Bedrock, LangGraph, FAISS, evaluations, and Power BI for decision‑grade analytics.</p>
+          <div class="btns">
+            <a class="btn primary" href="#contact">Contact me</a>
+            <a class="btn" href="#projects">See projects</a>
+            <a class="btn" href="mailto:sachinuk145@gmail.com">Email</a>
+          </div>
+          <div class="badges">
+            <span class="badge">Full UK Right to Work</span>
+            <span class="badge">MSc Big Data Analytics (Distinction)</span>
+            <span class="badge">AI Engineering • RAG • LLMOps</span>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><b>4.5+</b><div class="muted">years experience</div></div>
+            <div class="kpi"><b>AI</b><div class="muted">RAG • LLMOps • Agents</div></div>
+            <div class="kpi"><b>UK</b><div class="muted">Sheffield‑based</div></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="pad section">
+          <h2>Quick Links</h2>
+          <div style="display:grid;gap:10px">
+            <a class="project" href="#projects" rel="noreferrer">
+              <div class="thumb">Project image</div>
+              <div>
+                <div style="font-weight:600">Medical Case Analysis RAG (Dissertation)</div>
+                <div class="muted">Bio_ClinicalBERT + FAISS • MedLlama‑3‑8B</div>
+              </div>
+            </a>
+            <a class="project" href="#projects" rel="noreferrer">
+              <div class="thumb">Project image</div>
+              <div>
+                <div style="font-weight:600">Web Social Media Analytics (NLP + Graph)</div>
+                <div class="muted">500K+ tweets • Topic modeling • Network analysis</div>
+              </div>
+            </a>
+            <a class="project" href="#projects" rel="noreferrer">
+              <div class="thumb">Project image</div>
+              <div>
+                <div style="font-weight:600">Tender Automation (RPA + RAG)</div>
+                <div class="muted">OCR • Categorization • Doc Q&A</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="projects" class="card section" style="margin-top:18px">
+      <div class="pad">
+        <h2>Featured Projects</h2>
+        <div class="project">
+          <div class="thumb">16:10 preview</div>
+          <div>
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
+              <div>
+                <div style="font-weight:700">Medical Case Analysis RAG System</div>
+                <div class="muted">Bio_ClinicalBERT retrieval (FAISS) • MedLlama‑3‑8B generation • GPU‑accelerated</div>
+              </div>
+            </div>
+            <p style="margin:8px 0 0">Domain‑specific RAG replacing general models with evaluation improvements in similarity and BLEU/ROUGE, reducing hallucinations on NHS‑format case data.</p>
+          </div>
+        </div>
+        <div class="project">
+          <div class="thumb">16:10 preview</div>
+          <div>
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
+              <div>
+                <div style="font-weight:700">Web Social Media Analytics</div>
+                <div class="muted">NLP pipeline • Topic modeling (LDA/LSI) • Graph centrality (NetworkX)</div>
+              </div>
+            </div>
+            <p style="margin:8px 0 0">Analyzed 500K+ tweets for sentiment/misinformation; trained classifiers (LogReg, SVM, LSTM) and mapped influencer networks to expose high‑impact nodes.</p>
+          </div>
+        </div>
+        <div class="project">
+          <div class="thumb">16:10 preview</div>
+          <div>
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
+              <div>
+                <div style="font-weight:700">Tender Automation with RPA + RAG</div>
+                <div class="muted">OCR • Doc extraction/categorization • LLM chatbot</div>
+              </div>
+            </div>
+            <p style="margin:8px 0 0">Automated document processing and Q&A, enabling major manual effort reduction and higher throughput in daily applications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="card section" style="margin-top:18px">
+      <div class="pad">
+        <h2>Skills</h2>
+        <div class="skills">
+          <span class="pill">RAG • LLMOps • Agents</span>
+          <span class="pill">LangChain • LangGraph</span>
+          <span class="pill">Python • FastAPI • Streamlit</span>
+          <span class="pill">SQL • PySpark • Databricks</span>
+          <span class="pill">Power BI • DAX</span>
+          <span class="pill">TensorFlow • PyTorch</span>
+          <span class="pill">AWS: Bedrock • ECR • SageMaker</span>
+          <span class="pill">Docker • Git • CI/CD</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="card section" style="margin-top:18px">
+      <div class="pad">
+        <h2>Contact</h2>
+        <p class="muted">Best ways to reach me. I respond quickly.</p>
+        <div class="btns">
+          <a class="btn" href="mailto:sachinuk145@gmail.com">📧 Email</a>
+          <a class="btn" href="https://wa.me/919013586896" target="_blank" rel="noreferrer">💬 WhatsApp</a>
+          <a class="btn" href="https://www.linkedin.com/in/sachin-14/" target="_blank" rel="noreferrer"> LinkedIn</a>
+          <a class="btn" href="https://github.com/sachin14596" target="_blank" rel="noreferrer"> GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="y"></span> Sachin</div>
+      <div class="muted">Built with plain HTML/CSS • Free hosting</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
