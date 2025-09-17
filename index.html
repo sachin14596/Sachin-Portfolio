@@ -3,220 +3,383 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sachin — Cassie‑inspired Portfolio</title>
-  <meta name="description" content="Playful, animation‑forward portfolio inspired by cassie.codes — with dark mode, tags, and whimsical hero." />
+  <title>Sachin — Cassie-style Portfolio</title>
 
-  <!--
-    LEGAL NOTE
-    This is an original implementation that takes inspiration from the
-    *feel* of cassie.codes (playful copy, tag-like nav, dark mode toggle,
-    animation details). It doesn't copy layout, assets, or proprietary code.
+  <!-- Optional Google font fallbacks (uncomment if you don't have Mosk/Jenthill)
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fraunces:opsz,wght@9..144,700;800&display=swap" rel="stylesheet">
   -->
 
-  <!-- Fonts (free): Inter for UI + DM Serif Display for expressive headlines -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-
   <style>
-    /* =============================================================
-       1) DESIGN TOKENS
-       Change these to retheme the site.
-       ============================================================= */
+    /* -----------------------------
+       THEME TOKENS (colors & radii)
+       ----------------------------- */
     :root{
-      --bg:#0b0f15;        /* deep ink */
-      --panel:#0f1622;     /* card background */
-      --ink:#e6eef7;       /* main text */
-      --muted:#9ab0c7;     /* secondary text */
-      --accent:#8ef0ff;    /* bright cyan accent */
-      --accent-2:#ff7ad9;  /* pink secondary accent */
-      --line:#1b2534;      /* borders */
-      --shadow:0 10px 30px rgba(0,0,0,.35);
+      /* Day palette (matches the site you shared) */
+      --mint: hsl(164, 61%, 65%);
+      --mint-up: hsl(148, 35%, 74%);
+      --mint-down: hsl(163, 36%, 51%);
+      --lilac: hsl(264, 51%, 71%);
+      --sea: hsl(189, 58%, 65%);
+      --sherbet: hsl(55, 97%, 85%);
+
+      --bg: hsl(0, 0%, 97%);
+      --bg-fade: hsl(300, 11%, 96%);
+      --ink: hsl(0, 0%, 25%);
+      --ink-soft: hsl(237, 18%, 23%);
+      --border: hsl(0, 0%, 25%);
+
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+
+      /* Typographic scale (fluid-ish) */
+      --step-0: clamp(16px, 1vw + 12px, 19px);
+      --step-1: calc(var(--step-0) * 1.15);
+      --step-2: calc(var(--step-0) * 1.33);
+      --step-3: calc(var(--step-0) * 1.6);
+      --step-4: clamp(28px, 4vw + 12px, 48px);
+      --step-5: clamp(34px, 6vw + 12px, 62px);
     }
-    [data-theme="light"]{
-      --bg:#f8fbff; --panel:#ffffff; --ink:#0f1824; --muted:#49596d;
-      --accent:#0ea5e9; --accent-2:#d946ef; --line:#e6edf5;
+    /* Night palette overrides (from the original site) */
+    .night{
+      --mint: hsl(316, 30%, 36%);
+      --lilac: hsl(240, 33%, 77%);
+      --sherbet: hsl(260, 24%, 18%);
+      --bg: hsl(274, 4%, 16%);
+      --bg-fade: hsl(274, 4%, 15%);
+      --ink: hsl(0, 0%, 98%);
+      --ink-soft: hsl(0, 0%, 98%);
+      --border: hsl(0, 0%, 98%);
     }
 
-    /* Base */
+    /* -----------------------------
+       BASE / RESET
+       ----------------------------- */
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}
+    html,body{margin:0}
+    body{
+      font: 400 var(--step-0) / 1.75 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg-fade);
+      scroll-behavior: smooth;
+    }
     img{max-width:100%;display:block}
-    .container{max-width:1100px;margin:0 auto;padding:0 22px}
+    a{color:inherit;text-decoration:none}
+    .wrapper{max-width:95rem;margin-inline:auto;padding-inline:clamp(1rem, 4vw, 4rem)}
 
-    /* =============================================================
-       2) NAV / TAG LINKS
-       ============================================================= */
-    .nav{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent);backdrop-filter:saturate(120%) blur(6px)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
-    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
-    .brand .dot{width:10px;height:10px;border-radius:2px;background:var(--accent)}
-    .tags{display:flex;gap:10px;flex-wrap:wrap}
-    .tag{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
-    .tag .bul{width:8px;height:8px;border-radius:2px;background:var(--accent-2)}
-    .muted{color:var(--muted)}
+    /* -----------------------------
+       FONT-FACE (use if you own the fonts)
+       Drop files at /fonts and keep names
+       ----------------------------- */
+    @font-face{
+      font-family: "Mosk";
+      src: url("/fonts/mosk-600.woff2") format("woff2"),
+           url("/fonts/mosk-600.woff") format("woff");
+      font-weight:600; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family: "Mosk";
+      src: url("/fonts/mosk-900.woff2") format("woff2"),
+           url("/fonts/mosk-900.woff") format("woff");
+      font-weight:900; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family: "Jenthill";
+      src: url("/fonts/jenthill.woff2") format("woff2"),
+           url("/fonts/jenthill.woff") format("woff");
+      font-weight:400; font-style:normal; font-display:swap;
+    }
 
-    /* Dark mode toggle */
-    .toggle{border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.04);cursor:pointer}
+    /* Prefer Mosk if present; otherwise Inter (from Google link) */
+    :root{ --sans: "Mosk", Inter, system-ui, Arial, sans-serif; }
+    :root{ --cursive: "Jenthill", "Fraunces", serif; }
 
-    /* =============================================================
-       3) HERO (whimsical headline + animated blob)
-       ============================================================= */
-    .hero{position:relative;padding:56px 0 30px}
-    .hero-grid{display:grid;gap:24px;align-items:center}
-    @media(min-width:900px){.hero-grid{grid-template-columns:1.1fr .9fr}}
+    h1,h2,h3{font-family: var(--sans); letter-spacing:.04em; margin:0 0 .5rem}
+    h1{font-size:var(--step-5); line-height:1.1}
+    h2{font-size:var(--step-3); line-height:1.2}
+    h3{font-size:var(--step-2); line-height:1.3}
 
-    .eyebrow{letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--muted)}
-    .display{font-family:"DM Serif Display",serif;font-size:clamp(34px,8vw,70px);line-height:1.02;margin:8px 0 10px}
-    .lead{max-width:640px;color:var(--muted)}
+    /* -----------------------------
+       HEADER (logo, chips, theme toggle)
+       ----------------------------- */
+    .site-head{position:absolute; inset-inline:0; top:0; z-index:10}
+    .site-head .inner{display:flex; align-items:center; justify-content:space-between; padding-block:1rem}
+    .logo{
+      width:8rem; height:2.2rem; display:grid; place-items:center;
+      font: 800 1rem var(--sans);
+      color: var(--ink);
+      border:2px solid var(--border);
+      background:#fff;
+      box-shadow:.5rem .5rem 0 0 var(--ink-soft);
+    }
+    .nav{display:flex; gap:1.25rem; align-items:center}
+    .chip{
+      position:relative;
+      display:block; padding:.8rem .9rem .7rem;
+      font:600 .9rem var(--sans);
+      border-bottom:2px solid transparent;
+    }
+    /* hover “ink” effect under nav links */
+    .chip::after{
+      content:""; position:absolute; left:0; right:0; bottom:-.9rem; height:1rem;
+      background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="53" height="4" viewBox="0 0 53 4" fill="none"><path d="M51.9 3C49 3 49 1 46.2 1c-2.8 0-2.8 2-5.7 2-2.8 0-2.8-2-5.7-2C32 1 32 3 29.1 3c-2.8 0-2.8-2-5.7-2-2.8 0-2.8 2-5.6 2S15 1 12.1 1C9.5 1 9.5 3 6.7 3 3.8 3 3.8 1 1 1" stroke="%23404040" stroke-width="2" stroke-linecap="round"/></svg>') center/contain no-repeat;
+      opacity:0; transition:opacity .25s ease;
+    }
+    .night .chip::after{filter:invert(1)}
+    .chip:hover::after{opacity:1}
 
-    .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700}
-    .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#0a1020;border:none}
+    /* Toggle switch (pure CSS, like the original) */
+    .switch{display:inline-flex; align-items:center; gap:.5rem; font:600 .9rem var(--sans)}
+    .switch input{appearance:none; width:3.2rem; height:1.9rem; border-radius:999px; position:relative; outline:none; cursor:pointer; border:2px solid #fff; background:radial-gradient(circle, #fff 0%, #a8ebfb 100%)}
+    .switch input::after{
+      content:""; position:absolute; top:.15rem; left:.15rem; width:1.6rem; height:1.6rem; border-radius:50%;
+      background:linear-gradient(130deg,#ffc851 0,#fff0a4 45%,#ffc851 45%,#fcb045 100%);
+      border:.1rem solid #ff9b04; transition:transform .25s ease;
+    }
+    .switch input:checked{background:radial-gradient(circle, #d5d5d5 0%, #525065 100%)}
+    .switch input:checked::after{ transform:translateX(1.35rem) rotate(180deg) }
 
-    /* Animated gooey blob */
-    .blob{position:relative;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--accent), transparent 60%), radial-gradient(circle at 70% 60%, var(--accent-2), transparent 55%), radial-gradient(circle at 50% 50%, rgba(255,255,255,.12), transparent 50%);filter:blur(12px) saturate(120%);animation:float 8s ease-in-out infinite}
-    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(8deg)}}
-    .blob-wrap{display:grid;place-items:center}
-    .blob-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
-    .note{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+    /* -----------------------------
+       HERO
+       ----------------------------- */
+    .hero{
+      min-height:100vh;
+      display:flex; align-items:center;
+      background:var(--bg-fade);
+      position:relative;
+      overflow:hidden;
+    }
+    /* Mint strip on the right (like the original) */
+    @media (min-width: 800px){
+      .hero::after{
+        content:""; position:absolute; inset-block:0; right:0; width:68%;
+        background: var(--mint); z-index:0; max-width:1800px;
+      }
+    }
+    .hero .inner{position:relative; z-index:1; display:flex; gap:2rem; align-items:center}
+    .hero .content{width:min(49%, 780px)}
+    .eyebrow{display:inline-block; transform:rotate(-5deg); transform-origin:bottom left; margin-bottom:.75rem}
+    .eyebrow .tag{
+      display:inline-block; padding:.25rem .6rem; border:2px solid var(--ink); background:#fff; margin-right:.35rem;
+      font:600 .8rem var(--sans);
+    }
+    .hero h1{
+      letter-spacing:.6px;
+      /* Outline style on some words */
+    }
+    .hero .outline{
+      color:var(--ink); -webkit-text-fill-color:transparent;
+      -webkit-text-stroke:1.5px var(--ink);
+    }
+    .lead{max-width:60ch; color:var(--ink-soft)}
+    .cta{display:flex; gap:1rem; align-items:center; margin-top:1.2rem; flex-wrap:wrap}
+    .btn{
+      position:relative; display:inline-block; padding:.6rem 1.25rem;
+      background:var(--ink); color:var(--ink);
+      font:600 .95rem var(--sans);
+    }
+    .btn::after{
+      content:attr(data-text); position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background:#fff; color:var(--ink); border:2px solid var(--ink);
+      transform:translate(-.3rem,-.3rem);
+      transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .btn:hover::after{ transform:translate(0,0) }
+    .night .btn::after{ background:var(--lilac) }
 
-    /* =============================================================
-       4) SECTIONS (cards)
-       ============================================================= */
-    section{padding:32px 0}
-    .sec-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-    .sec-head .sq{width:10px;height:10px;border-radius:2px;background:var(--accent)}
+    /* A tiny animated blob (no JS) */
+    .blob{
+      position:absolute; right:18%; top:38%;
+      width:14px; height:14px; border-radius:50%;
+      background:#1a1a1a20; animation:float 6s ease-in-out infinite;
+      box-shadow:0 0 0 12px rgba(0,0,0,.02);
+    }
+    @keyframes float{
+      0%,100%{ transform:translate(0,0) }
+      50%{ transform:translate(0,-14px) }
+    }
 
-    .grid{display:grid;gap:14px}
-    @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
-    .card h3{margin:0 0 6px}
+    /* -----------------------------
+       SECTION: Projects (browser cards)
+       ----------------------------- */
+    section{padding-block: clamp(3rem, 6vw, 6rem)}
+    .sec-head{margin-bottom:1.25rem; display:flex; align-items:center; gap:.5rem}
+    .sec-head .dot{width:.7rem; height:.7rem; border-radius:3px; background:var(--mint)}
+    .grid{display:grid; gap:1rem}
+    @media (min-width:800px){ .grid{grid-template-columns: repeat(3, 1fr)} }
 
-    /* Footer */
-    .footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;color:var(--muted);padding:18px 0;border-top:1px solid var(--line)}
+    .browser{
+      position:relative; background:#fff; border-radius:var(--radius-lg);
+      border:2px solid var(--ink); padding:2.2rem 1rem 1rem; color:var(--ink);
+    }
+    .browser::before{
+      /* Three circles (window controls) */
+      content:""; position:absolute; left:1rem; top:.6rem; width:4rem; height:1.5rem;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 21"><circle cx="10" cy="10" r="10" fill="%23404040"/><circle cx="40" cy="10" r="10" fill="%23404040"/><circle cx="70" cy="10" r="10" fill="%23404040"/></svg>') no-repeat 0 0 / contain;
+    }
+    .night .browser{ background: var(--sherbet) }
+
+    .browser h3{ margin-bottom:.4rem }
+    .browser p{ margin:.5rem 0 1rem }
+    .browser .links{
+      display:flex; gap:.75rem; justify-content:space-between; align-items:center;
+      border-top:2px solid var(--ink); padding-top:.75rem;
+    }
+    .link{font:600 .95rem var(--sans); border-bottom:1.5px solid transparent}
+    .link:hover{border-color:var(--lilac)}
+
+    /* -----------------------------
+       CONTACT
+       ----------------------------- */
+    .contact{
+      background:var(--mint);
+    }
+    .contact .panel{
+      background:#fff; border:2px solid var(--ink); padding:2rem; border-radius:var(--radius-lg);
+      background-image: linear-gradient(0deg, transparent 0 2.4rem, #fff 2.4rem);
+    }
+    .social a{font:600 1rem var(--sans); border-bottom:1.5px solid var(--mint)}
+    .social a:hover{ color:var(--mint-down) }
+
+    /* -----------------------------
+       UTILITIES
+       ----------------------------- */
+    .stack > * + * { margin-top: 1rem }
   </style>
 </head>
 <body>
-  <!-- NAV -->
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="brand"><span class="dot" aria-hidden></span> Sachin</div>
-      <nav class="tags" aria-label="Quick sections">
-        <a class="tag" href="#writing"><span class="bul"></span>writing</a>
-        <a class="tag" href="#speaking"><span class="bul"></span>speaking</a>
-        <a class="tag" href="#workshop"><span class="bul"></span>workshop</a>
-        <a class="tag" href="#playing"><span class="bul"></span>playing</a>
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <header class="site-head">
+    <div class="wrapper inner">
+      <div class="logo">Sachin</div>
+
+      <nav class="nav">
+        <a class="chip" href="#projects">writing</a>
+        <a class="chip" href="#projects">speaking</a>
+        <a class="chip" href="#projects">workshop</a>
+        <a class="chip" href="#projects">playing</a>
+
+        <!-- Theme toggle -->
+        <label class="switch" aria-label="Toggle dark mode">
+          <input id="themeToggle" type="checkbox" />
+        </label>
       </nav>
-      <button class="toggle" id="mode">Toggle theme</button>
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- =========================
+       HERO
+       ========================= -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow">Hi, I'm Sachin</div>
-        <h1 class="display">I like making fun, interactive things with code.</h1>
-        <p class="lead">I build AI products (RAG, agents, LLMOps) and sometimes talk & write about them. This site collects my projects, notes, and playful experiments.</p>
+    <span class="blob" aria-hidden="true"></span>
+
+    <div class="wrapper inner">
+      <div class="content">
+        <!-- tiny “labels” like the original -->
+        <div class="eyebrow" aria-hidden="true">
+          <span class="tag">AI</span>
+          <span class="tag">LLMOps</span>
+          <span class="tag">RAG</span>
+        </div>
+
+        <h1 class="display">
+          I like making <span class="outline">fun,</span><br/>
+          interactive things <br/>with code.
+        </h1>
+
+        <p class="lead">
+          I build AI products (RAG, agents, LLMOps) and sometimes talk & write about them.
+          This site collects my projects, notes, and playful experiments.
+        </p>
+
         <div class="cta">
-          <a class="btn primary" href="#projects">See projects</a>
-          <a class="btn" href="#writing">Read notes</a>
-          <a class="btn" href="Sachin_AI.pdf" target="_blank">Resume</a>
+          <a class="btn" data-text="See projects" href="#projects"></a>
+          <a class="btn" data-text="Read notes" href="#notes"></a>
+          <a class="btn" data-text="Resume" href="Sachin_AI.pdf" target="_blank" rel="noopener"></a>
         </div>
       </div>
-      <div class="blob-wrap">
-        <div class="blob-card">
-          <div class="blob" aria-hidden></div>
-        </div>
-        <div class="note">tiny animated blob — no JS</div>
-      </div>
+      <!-- Empty right side; the mint panel comes from ::after -->
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- =========================
+       PROJECTS
+       ========================= -->
   <section id="projects">
-    <div class="container">
-      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Projects</h2></div>
+    <div class="wrapper">
+      <div class="sec-head"><span class="dot"></span><h2>Projects</h2></div>
+
       <div class="grid">
-        <article class="card"><h3>Medical Case Analysis — RAG</h3><p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama‑3‑8B generation • evals (similarity/BLEU/ROUGE) — fewer hallucinations.</p></article>
-        <article class="card"><h3>Tender Automation (RPA + RAG)</h3><p class="muted">OCR → categorize → doc Q&A; major reduction in cycle time & manual effort.</p></article>
-        <article class="card"><h3>Web Social Media Analytics</h3><p class="muted">500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy.</p></article>
+        <!-- Browser-style project card -->
+        <article class="browser">
+          <h3>Medical Case Analysis — RAG</h3>
+          <p>Bio_ClinicalBERT + FAISS retrieval • MedLlama-3-8B generation • evals (similarity/BLEU/ROUGE).</p>
+          <div class="links">
+            <a class="link" href="#">read more →</a>
+            <a class="link" href="#">source</a>
+          </div>
+        </article>
+
+        <article class="browser">
+          <h3>Tender Automation (RPA + RAG)</h3>
+          <p>OCR → categorize → doc Q&A; major reduction in cycle time & manual effort.</p>
+          <div class="links">
+            <a class="link" href="#">read more →</a>
+            <a class="link" href="#">source</a>
+          </div>
+        </article>
+
+        <article class="browser">
+          <h3>Web Social Media Analytics</h3>
+          <p>500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy.</p>
+          <div class="links">
+            <a class="link" href="#">read more →</a>
+            <a class="link" href="#">source</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- WRITING / SPEAKING / WORKSHOP / PLAYING (as simple lists) -->
-  <section id="writing">
-    <div class="container">
-      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Writing</h2></div>
-      <div class="grid">
-        <article class="card"><h3>How I evaluate RAG systems</h3><p class="muted">Notes on retrieval quality, answer faithfulness, and noisy data.</p></article>
-        <article class="card"><h3>LangGraph mental model</h3><p class="muted">Thinking in state + edges instead of long prompt chains.</p></article>
-        <article class="card"><h3>Prompt versioning</h3><p class="muted">Why prompts should be artifacts with diffs & rollback.</p></article>
+  <!-- =========================
+       CONTACT
+       ========================= -->
+  <section class="contact">
+    <div class="wrapper">
+      <div class="panel stack">
+        <h2>Say hi</h2>
+        <p>Open to AI/LLMOps roles, collabs and fun side-quests.</p>
+        <p class="social">
+          <a href="mailto:sachinuk145@gmail.com">email</a> &nbsp;•&nbsp;
+          <a href="https://www.linkedin.com/in/sachin-14/" target="_blank" rel="noopener">linkedin</a> &nbsp;•&nbsp;
+          <a href="https://github.com/sachin14596" target="_blank" rel="noopener">github</a>
+        </p>
       </div>
     </div>
   </section>
-
-  <section id="speaking">
-    <div class="container">
-      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Speaking</h2></div>
-      <div class="grid">
-        <article class="card"><h3>AI for operations teams</h3><p class="muted">A talk on automating back‑office flows with RPA+RAG.</p></article>
-        <article class="card"><h3>SVG + LLMs?</h3><p class="muted">Playful ideas: structured SVG manipulation using tools.</p></article>
-        <article class="card"><h3>From notebooks to prod</h3><p class="muted">Owning the last mile with tests, evals & guardrails.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="workshop">
-    <div class="container">
-      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Workshops</h2></div>
-      <div class="grid">
-        <article class="card"><h3>Rapid RAG</h3><p class="muted">Hands‑on: embedding choices, chunking, and evals.</p></article>
-        <article class="card"><h3>Power BI for AI teams</h3><p class="muted">Tell the story with DAX and simple visuals.</p></article>
-        <article class="card"><h3>Agents with guardrails</h3><p class="muted">Structured outputs and safe tool use.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="playing">
-    <div class="container">
-      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Playing</h2></div>
-      <div class="grid">
-        <article class="card"><h3>Text morphing</h3><p class="muted">A CSS‑only headline morph experiment.</p></article>
-        <article class="card"><h3>Starfield</h3><p class="muted">Canvas dots with parallax based on mouse.</p></article>
-        <article class="card"><h3>Gooey buttons</h3><p class="muted">Blobs + filters + micro‑interactions.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT / FOOTER -->
-  <footer class="container footer" id="contact">
-    <div>© <span id="y"></span> Sachin</div>
-    <div class="tags">
-      <a class="tag" href="mailto:sachinuk145@gmail.com">✉ Email</a>
-      <a class="tag" href="https://www.linkedin.com/in/sachin-14/" target="_blank">in LinkedIn</a>
-      <a class="tag" href="https://github.com/sachin14596" target="_blank">GitHub</a>
-      <a class="tag" href="Sachin_AI.pdf" target="_blank">⬇ CV</a>
-    </div>
-  </footer>
 
   <script>
-    // Current year in footer
-    document.getElementById('y').textContent = new Date().getFullYear();
+    /* ============================================
+       Tiny script: remember theme between visits
+       ============================================ */
+    const html = document.documentElement;
+    const checkbox = document.getElementById('themeToggle');
 
-    // Simple light/dark toggle — stores preference in localStorage
-    const btn=document.getElementById('mode');
-    const root=document.documentElement;
-    const key='cassieInspiredTheme';
-    const saved=localStorage.getItem(key);
-    if(saved){ root.setAttribute('data-theme', saved); }
-    btn.addEventListener('click',()=>{
-      const cur=root.getAttribute('data-theme');
-      const next=cur==='light'?null:'light';
-      if(next){ root.setAttribute('data-theme','light'); localStorage.setItem(key,'light'); }
-      else { root.removeAttribute('data-theme'); localStorage.removeItem(key); }
+    // initialize from localStorage or prefers-color-scheme
+    const saved = localStorage.getItem('darkMode');
+    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+
+    if (saved === 'true' || (saved === null && prefersDark)) {
+      html.classList.add('night'); checkbox.checked = true;
+    }
+
+    checkbox.addEventListener('change', () => {
+      const night = checkbox.checked;
+      html.classList.toggle('night', night);
+      localStorage.setItem('darkMode', night);
     });
   </script>
 </body>
