@@ -1,228 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- SECTION: HEAD — Metadata, fonts, and global colors -->
+  <!-- =========================================================
+       SECTION 01 — HEAD & GLOBALS
+       Purpose: metadata, fonts, color tokens, resets, base styles
+       ========================================================= -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sachin — Cassie-style Portfolio</title>
   <meta name="description" content="Sachin • AI Engineer — projects, notes, resume" />
 
-  <!-- NOTE: If you want Cassie’s Mosk/Jenthill fonts, place the font files in /fonts and uncomment the @font-face rules below.
-       Otherwise the fallbacks (Inter + Poppins) will be used. -->
+  <!-- System-safe fonts; you can plug custom later -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* =========================================================
-       SECTION: CSS VARIABLES
-       - day theme is default on :root
-       - .night on <html> toggles dark theme (see JS at bottom)
-       ========================================================= */
+    /* ---------- Color tokens (Cassie-day palette inspired) ---------- */
     :root{
-      --mint: hsl(164, 61%, 65%);       /* Cassie mint */
-      --lilac: hsl(264, 51%, 71%);
-      --sea: hsl(189, 58%, 65%);
-      --sherbet: hsl(55, 97%, 85%);
-      --ink: hsl(0, 0%, 25%);
-      --ink-2: hsl(237, 18%, 23%);
-      --paper: hsl(0, 0%, 97%);
-      --paper-2: hsl(210, 4%, 98%);
-      --paper-3: hsl(210, 4%, 93%);
-      --shadow: 0 .5rem 0 0 var(--ink-2);
-    }
-    html.night{
-      --mint: hsl(316, 30%, 36%);
-      --lilac: hsl(240, 33%, 77%);
-      --sea: hsl(189, 58%, 65%);
-      --sherbet: hsl(260, 24%, 18%);
-      --ink: hsl(0, 0%, 98%);
-      --ink-2: hsl(0,0%,98%);
-      --paper: hsl(274, 4%, 16%);
-      --paper-2: hsl(274, 4%, 18%);
-      --paper-3: hsl(274, 4%, 20%);
-      --shadow: 0 .5rem 0 0 var(--lilac);
+      --mint:#6fdcbf;            /* mint panel */
+      --mint-d:#55af96;
+      --lilac:#ae8fdb;           /* accents */
+      --sherbet:#fef8b4;         /* soft yellow */
+      --ink:#2b2b2b;             /* main text */
+      --bg:#efedf0;              /* light gray page bg (left side) */
+      --white:#fff;
+      --line:#dcdcdc;
+
+      /* UI */
+      --shadow:0 20px 40px rgba(0,0,0,.06);
+      --radius:999px;
     }
 
-    /* =========================================================
-       SECTION: GLOBAL RESET + TYPE
-       ========================================================= */
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0}
+    /* ---------- Reset-ish ---------- */
+    *{box-sizing:border-box}
+    html,body{margin:0}
     body{
-      background:var(--paper);
+      font:16px/1.65 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
-      font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
       -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
-    h1,h2,h3{font-family:Poppins, Mosk, Inter, sans-serif; letter-spacing:.02em; margin:0 0 .5rem}
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; display:block}
-    .wrapper{max-width:1100px; margin:0 auto; padding:0 1rem}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+
+    .wrapper{max-width:1200px;margin:0 auto;padding:0 24px}
 
     /* =========================================================
-       SECTION: NAV (chips + theme toggle)
+       SECTION 02 — TOP NAV (pills only; brand/toggle removed)
        ========================================================= */
-    .site-head{position:relative; z-index:5}
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:1rem 0}
-    .brand{font-weight:900; letter-spacing:.04em}
-    .chips{display:flex; gap:.75rem; align-items:center}
-    .chip{
-      font:600 .8rem Inter, sans-serif;
-      padding:.5rem .9rem; border:2px solid var(--ink);
-      border-radius:999px; background:var(--paper);
-      box-shadow:var(--shadow);
+    header.site-head{
+      position:sticky; top:0; z-index:40;
+      background:rgba(255,255,255,.85);
+      -webkit-backdrop-filter:saturate(120%) blur(8px);
+              backdrop-filter:saturate(120%) blur(8px);
+      border-bottom:1px solid var(--line);
     }
-    .switch{display:inline-flex; align-items:center; gap:.5rem; margin-left:1rem}
-    .switch input{appearance:none; width:48px;height:24px;border:2px solid var(--ink); border-radius:999px; position:relative; background:#fff}
-    .switch input::after{content:""; position:absolute; top:50%; left:4px; transform:translateY(-50%); width:16px; height:16px; border-radius:50%; background:var(--mint); transition:transform .2s}
-    .switch input:checked::after{transform:translate(24px,-50%)}
+    .site-head__inner{
+      display:flex; align-items:center; justify-content:center;
+      gap:18px; padding:12px 0;
+    }
+    .pills{display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:center;}
+    .pill{
+      font-weight:700; font-size:14px; letter-spacing:.02em;
+      border:2px solid #222; padding:.55rem .9rem;
+      border-radius:999px; background:#fff;
+      box-shadow:0 3px 0 #222;
+    }
+    .pill::before{content:"• "; color:#7d7d7d}
 
     /* =========================================================
-       SECTION: HERO
-       - mint panel is the right-side ::after backdrop
+       SECTION 03 — HERO (split background & right-aligned content)
        ========================================================= */
-    .hero{position:relative; min-height:100vh; display:flex; align-items:center; background:var(--paper-2)}
-    .hero::after{content:""; position:absolute; inset:0 0 0 38%; background:var(--mint); z-index:0; max-width:1800px}
-    .hero .inner{position:relative; z-index:1; display:flex; gap:3rem; align-items:center}
-    .hero .content{width:46%}
-    .eyebrow{transform:rotate(-5deg); display:inline-block; background:linear-gradient(transparent 55%, var(--lilac) 55%, var(--lilac) 90%, transparent 90%); padding:0 .25rem; font-weight:700}
-    .hero h1{font-size:clamp(2.4rem, 6vw, 5.2rem); line-height:1.05; letter-spacing:.6px; margin:1rem 0}
-    .outline{-webkit-text-fill-color:transparent; -webkit-text-stroke:1.5px var(--ink)}
-    .outline:hover{-webkit-text-fill-color:var(--ink)}
-    .lead{max-width:48ch; color:rgba(0,0,0,.75)}
-    html.night .lead{color:rgba(255,255,255,.85)}
+    .hero{
+      position:relative; min-height:92vh; display:grid;
+      /* Two columns: left placeholder, right mint content area */
+      grid-template-columns: 44% 56%;
+    }
+    /* Mint panel on the right side */
+    .hero::after{
+      content:""; position:absolute; inset:0 0 0 44%;
+      background:var(--mint);
+      z-index:0;
+    }
+    .hero__grid{
+      position:relative; z-index:1; /* sit above the mint panel */
+      display:grid; grid-template-columns: 44% 56%; width:100%;
+    }
+    /* Place copy inside the right column */
+    .hero__content{
+      grid-column:2; padding: clamp(24px, 5vw, 56px) clamp(22px, 4vw, 48px);
+      display:flex; flex-direction:column; gap:20px; align-self:center;
+    }
+    .eyebrow{
+      font-weight:800; letter-spacing:.06em; font-size:13px;
+      display:inline-block; transform:rotate(-5deg);
+      background:linear-gradient(transparent 55%, var(--sherbet) 55%);
+      padding:.2rem .35rem;
+      width:fit-content;
+    }
+    .hero h1{
+      /* smaller than before + natural wrapping */
+      font-weight:900;
+      font-size:clamp(36px, 6.2vw, 68px);
+      line-height:1.12;
+      letter-spacing:.01em;
+      max-width:22ch;       /* keeps it paragraph-ish */
+      margin:0;
+    }
+    /* Cassie-style outlined keyword */
+    .outline{
+      color:transparent;
+      -webkit-text-stroke:1.5px #2b2b2b;
+      text-shadow:none;
+    }
+    .hero p.lede{
+      margin:4px 0 14px;
+      max-width:52ch;
+      color:#2d2d2d;
+    }
 
-    /* [MARK:hero-cta] Cassie-style offset buttons — safer text-in-HTML version */
-    .cta{display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1rem}
+    /* Buttons row */
+    .cta{display:flex; gap:12px; flex-wrap:wrap}
     .btn{
-      position:relative; display:inline-block; padding:.6rem 1.15rem;
-      background:var(--paper); color:var(--ink); border:2px solid var(--ink);
-      font:600 .95rem Inter, sans-serif; letter-spacing:.02em;
+      display:inline-flex; align-items:center; gap:10px;
+      border-radius:999px; padding:.7rem 1.1rem;
+      font-weight:800; background:#fff; border:2px solid #222;
+      box-shadow:0 3px 0 #222;
     }
-    .btn::before{
-      content:""; position:absolute; inset:0;
-      background:var(--ink); transform:translate(.35rem,.35rem); z-index:-1;
-      transition:transform .2s cubic-bezier(.34,1.56,.64,1);
-    }
-    .btn:hover::before{transform:translate(0,0)}
-    html.night .btn{background:var(--lilac)}
+    .btn.primary{background:var(--ink); color:#fff; border-color:#222}
 
     /* =========================================================
-       SECTION: PROJECTS
+       SECTION 04 — SECTIONS (Projects/Experience/etc.)
+       (kept simple so focus stays on the hero while we iterate)
        ========================================================= */
-    .section{padding:5rem 0; background:var(--paper)}
-    .section h2{font-size:1rem; text-transform:uppercase; letter-spacing:.22em; margin-bottom:1rem}
-    .cards{display:grid; grid-template-columns:1fr; gap:1rem}
-    @media(min-width:900px){ .cards{ grid-template-columns:repeat(3,1fr)} }
-    .card{
-      background:var(--paper-2); border:2px solid var(--ink); border-radius:16px; padding:1rem 1.25rem;
-      box-shadow:var(--shadow);
-    }
-    .card h3{font-size:1.25rem}
-    .muted{opacity:.8}
+    section.wrap{border-top:1px solid var(--line); padding:42px 0; background:#fff}
+    .section h2{margin:0 0 12px; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:#444}
+    .grid{display:grid; gap:16px}
+    @media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card2{border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); background:#fff}
+    .muted{color:#6b7280}
 
     /* =========================================================
-       SECTION: FOOTER
+       SECTION 05 — FOOTER
        ========================================================= */
-    footer{border-top:2px solid var(--ink); padding:1rem 0; color:rgba(0,0,0,.65)}
-    html.night footer{color:rgba(255,255,255,.8)}
-
-    /* Small helpers */
-    .sr-only{position:absolute;left:-9999px}
+    footer.footer{display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between; color:#6b7280; padding:22px 24px; border-top:1px solid var(--line); background:#fff}
+    
+    /* ---------- Responsive hero stacking ---------- */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .hero::after{inset:35% 0 0 0;}            /* mint from 35% height down */
+      .hero__grid{grid-template-columns:1fr}
+      .hero__content{grid-column:auto}
+      .hero h1{max-width:26ch}
+    }
   </style>
 </head>
 <body>
-  <!-- =======================================================
-       SECTION: NAV BAR
-       ======================================================= -->
-  <header class="site-head wrapper">
-    <div class="nav">
-      <div class="brand">Sachin</div>
-      <div class="chips">
-        <a class="chip" href="#writing">● writing</a>
-        <a class="chip" href="#speaking">● speaking</a>
-        <a class="chip" href="#workshop">● workshop</a>
-        <a class="chip" href="#playing">● playing</a>
-        <!-- [MARK:toggle] theme switch -->
-        <label class="switch" title="Toggle dark mode">
-          <input type="checkbox" id="themeToggle" aria-label="toggle dark mode">
-        </label>
-      </div>
+
+  <!-- =========================================================
+       SECTION 02 — TOP NAV (pills only)
+       ========================================================= -->
+  <header class="site-head">
+    <div class="wrapper site-head__inner">
+      <nav aria-label="Primary">
+        <ul class="pills" role="list">
+          <li><a class="pill" href="#writing">writing</a></li>
+          <li><a class="pill" href="#speaking">speaking</a></li>
+          <li><a class="pill" href="#workshop">workshop</a></li>
+          <li><a class="pill" href="#playing">playing</a></li>
+        </ul>
+      </nav>
+      <!-- brand & dark-mode toggle intentionally removed per request -->
     </div>
   </header>
 
-  <!-- =======================================================
-       SECTION: HERO
-       ======================================================= -->
+  <!-- =========================================================
+       SECTION 03 — HERO
+       ========================================================= -->
   <section class="hero" id="home">
-    <div class="inner wrapper">
-      <!-- Optional: SVG illustration could live here on the right if desired -->
-      <div class="content">
-        <div class="eyebrow"><span>Hi, I'm Sachin</span></div>
-        <h1>
-          I like making <span class="outline">fun,</span><br>
-          interactive things<br> with code.
-        </h1>
-        <p class="lead">I build AI products (RAG, agents, LLMOps) and sometimes talk & write about them. This site collects my projects, notes, and playful experiments.</p>
+    <div class="hero__grid wrapper">
+      <!-- Left column is intentionally empty (room for illustration later) -->
+      <div aria-hidden="true"></div>
 
-        <!-- [MARK:hero-cta] -->
+      <!-- Right column: headline + lede + buttons -->
+      <div class="hero__content">
+        <div class="eyebrow">👋 Hi, I’m Sachin</div>
+
+        <!-- Headline as a readable paragraph (no forced word-per-line) -->
+        <h1>
+          I like making <span class="outline">fun</span>, interactive things with code.
+          I also talk &amp; <span class="outline">write</span> about those things.
+        </h1>
+
+        <p class="lede">
+          I build AI products (RAG, agents, LLMOps) and sometimes talk &amp; write about them.
+          This site collects my projects, notes, and playful experiments.
+        </p>
+
         <div class="cta">
-          <a class="btn" href="#projects">See projects</a>
-          <a class="btn" href="#notes">Read notes</a>
+          <a class="btn primary" href="#projects">See projects</a>
+          <a class="btn" href="#writing">Read notes</a>
           <a class="btn" href="Sachin_AI.pdf" target="_blank" rel="noopener">Resume</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- =======================================================
-       SECTION: PROJECTS
-       ======================================================= -->
-  <section id="projects" class="section">
+  <!-- =========================================================
+       SECTION 04 — PROJECTS (sample cards so page has structure)
+       ========================================================= -->
+  <section id="projects" class="wrap section">
     <div class="wrapper">
       <h2>Projects</h2>
-      <div class="cards">
-        <article class="card">
+      <div class="grid">
+        <article class="card2">
           <h3>Medical Case Analysis — RAG</h3>
-          <p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama-3-8B generation • evals (similarity/BLEU/ROUGE).</p>
+          <p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama-3-8B generation • evals — fewer hallucinations.</p>
         </article>
-        <article class="card">
+        <article class="card2">
           <h3>Tender Automation (RPA + RAG)</h3>
-          <p class="muted">OCR → categorize → doc Q&A; major reduction in cycle time & manual effort.</p>
+          <p class="muted">OCR → categorize → doc Q&A; big cut in cycle time & manual effort.</p>
         </article>
-        <article class="card">
+        <article class="card2">
           <h3>Web Social Media Analytics</h3>
-          <p class="muted">500K+ tweets • topic modeling • network centrality • classifiers to 96.9% acc.</p>
+          <p class="muted">500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- =======================================================
-       SECTION: FOOTER
-       ======================================================= -->
-  <footer class="wrapper">
-    <div>© <span id="y"></span> Sachin</div>
-    <div>Built with HTML/CSS • GitHub Pages</div>
+  <!-- (You can keep adding Experience, Skills, etc. sections here using the same pattern) -->
+
+  <!-- =========================================================
+       SECTION 05 — FOOTER
+       ========================================================= -->
+  <footer class="footer">
+    <div class="wrapper" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>© <span id="y"></span> Sachin</div>
+      <div>Built with HTML/CSS • GitHub Pages</div>
+    </div>
   </footer>
 
-  <!-- =======================================================
-       SECTION: JS — Theme toggle & year
-       ======================================================= -->
   <script>
-    // [MARK:year]
+    // Small helper: current year in footer
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // [MARK:theme] simple persistence in localStorage
-    const toggle = document.getElementById('themeToggle');
-    // initial state (avoid flash)
-    const stored = localStorage.getItem('darkMode');
-    if(stored === 'true'){ document.documentElement.classList.add('night'); toggle.checked = true; }
-    toggle.addEventListener('change', () => {
-      const enable = toggle.checked;
-      document.documentElement.classList.toggle('night', enable);
-      localStorage.setItem('darkMode', enable);
-    });
   </script>
 </body>
 </html>
