@@ -3,207 +3,221 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sachin — Business CV</title>
-  <meta name="description" content="Sachin • AI Engineer — Resume, Projects, Experience, Skills, Education" />
+  <title>Sachin — Cassie‑inspired Portfolio</title>
+  <meta name="description" content="Playful, animation‑forward portfolio inspired by cassie.codes — with dark mode, tags, and whimsical hero." />
+
+  <!--
+    LEGAL NOTE
+    This is an original implementation that takes inspiration from the
+    *feel* of cassie.codes (playful copy, tag-like nav, dark mode toggle,
+    animation details). It doesn't copy layout, assets, or proprietary code.
+  -->
+
+  <!-- Fonts (free): Inter for UI + DM Serif Display for expressive headlines -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
   <style>
+    /* =============================================================
+       1) DESIGN TOKENS
+       Change these to retheme the site.
+       ============================================================= */
     :root{
-      --ink:#111; --muted:#6b7280; --line:#e8e8e8; --bg:#ffffff; --panel:#efe6de; --panel-edge:#e7ddd4; --blue:#2563eb; --pill:#f5f5f5;
-      --radius:999px; --shadow:0 20px 40px rgba(0,0,0,.06);
+      --bg:#0b0f15;        /* deep ink */
+      --panel:#0f1622;     /* card background */
+      --ink:#e6eef7;       /* main text */
+      --muted:#9ab0c7;     /* secondary text */
+      --accent:#8ef0ff;    /* bright cyan accent */
+      --accent-2:#ff7ad9;  /* pink secondary accent */
+      --line:#1b2534;      /* borders */
+      --shadow:0 10px 30px rgba(0,0,0,.35);
     }
+    [data-theme="light"]{
+      --bg:#f8fbff; --panel:#ffffff; --ink:#0f1824; --muted:#49596d;
+      --accent:#0ea5e9; --accent-2:#d946ef; --line:#e6edf5;
+    }
+
+    /* Base */
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
-    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .container{max-width:1100px;margin:0 auto;padding:0 22px}
 
-    /* NAV */
-    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid var(--line)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-    .brand{font-weight:900;letter-spacing:.04em}
-    .links{display:flex;gap:18px}
-    .links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#222}
+    /* =============================================================
+       2) NAV / TAG LINKS
+       ============================================================= */
+    .nav{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent);backdrop-filter:saturate(120%) blur(6px)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
+    .brand .dot{width:10px;height:10px;border-radius:2px;background:var(--accent)}
+    .tags{display:flex;gap:10px;flex-wrap:wrap}
+    .tag{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+    .tag .bul{width:8px;height:8px;border-radius:2px;background:var(--accent-2)}
+    .muted{color:var(--muted)}
 
-    /* HERO SPLIT */
-    .hero{padding:36px 0}
-    .split{display:grid;gap:28px;align-items:stretch}
-    @media(min-width:1000px){.split{grid-template-columns:440px 1fr}}
+    /* Dark mode toggle */
+    .toggle{border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.04);cursor:pointer}
 
-    .card{
-      background:linear-gradient(180deg,var(--panel), #f3ece6);
-      border:1px solid var(--panel-edge);
-      border-radius:14px;box-shadow:var(--shadow);
-      overflow:hidden;display:flex;flex-direction:column;justify-content:space-between
-    }
-    .card-inner{padding:22px}
-    .avatar{width:160px;height:160px;border-radius:50%;background:#ddd;margin:16px auto;border:6px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-    .who{margin:0;text-align:center;font-weight:900;font-size:26px}
-    .role{margin:4px 0 0;text-align:center;letter-spacing:.22em;text-transform:uppercase;color:#333;font-size:12px}
-    .social{display:flex;gap:14px;justify-content:center;padding:14px;border-top:1px solid var(--panel-edge);background:#f7f3ef}
-    .social a{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--panel-edge);color:#222}
+    /* =============================================================
+       3) HERO (whimsical headline + animated blob)
+       ============================================================= */
+    .hero{position:relative;padding:56px 0 30px}
+    .hero-grid{display:grid;gap:24px;align-items:center}
+    @media(min-width:900px){.hero-grid{grid-template-columns:1.1fr .9fr}}
 
-    .hello{display:flex;flex-direction:column;justify-content:center}
-    .hello h1{font-size:clamp(42px,8vw,88px);line-height:0.95;margin:0 0 8px;font-weight:900;letter-spacing:-.01em}
-    .hello p{max-width:720px;color:#444;margin:0 0 16px}
+    .eyebrow{letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+    .display{font-family:"DM Serif Display",serif;font-size:clamp(34px,8vw,70px);line-height:1.02;margin:8px 0 10px}
+    .lead{max-width:640px;color:var(--muted)}
 
-    /* CENTER BUTTONS */
-    .cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-    .btn{display:inline-flex;align-items:center;gap:10px;border-radius:var(--radius);padding:12px 18px;border:1px solid var(--line);background:var(--pill);color:#111;font-weight:800}
-    .btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700}
+    .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#0a1020;border:none}
 
-    /* SECTIONS */
-    .wrap{max-width:1200px;margin:0 auto;padding:40px 24px;border-top:1px solid var(--line)}
-    .section h2{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:#333}
-    .grid{display:grid;gap:16px}
-    @media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card2{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
-    .muted{color:#6b7280}
+    /* Animated gooey blob */
+    .blob{position:relative;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--accent), transparent 60%), radial-gradient(circle at 70% 60%, var(--accent-2), transparent 55%), radial-gradient(circle at 50% 50%, rgba(255,255,255,.12), transparent 50%);filter:blur(12px) saturate(120%);animation:float 8s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(8deg)}}
+    .blob-wrap{display:grid;place-items:center}
+    .blob-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+    .note{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
 
-    /* FOOTER */
-    .footer{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;color:#6b7280;padding:22px 24px;border-top:1px solid var(--line)}
+    /* =============================================================
+       4) SECTIONS (cards)
+       ============================================================= */
+    section{padding:32px 0}
+    .sec-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .sec-head .sq{width:10px;height:10px;border-radius:2px;background:var(--accent)}
+
+    .grid{display:grid;gap:14px}
+    @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+    .card h3{margin:0 0 6px}
+
+    /* Footer */
+    .footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;color:var(--muted);padding:18px 0;border-top:1px solid var(--line)}
   </style>
 </head>
 <body>
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
-      <div class="brand">Sachin</div>
-      <nav class="links">
-        <a href="#about">About me</a>
-        <a href="#resume">Resume</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+      <div class="brand"><span class="dot" aria-hidden></span> Sachin</div>
+      <nav class="tags" aria-label="Quick sections">
+        <a class="tag" href="#writing"><span class="bul"></span>writing</a>
+        <a class="tag" href="#speaking"><span class="bul"></span>speaking</a>
+        <a class="tag" href="#workshop"><span class="bul"></span>workshop</a>
+        <a class="tag" href="#playing"><span class="bul"></span>playing</a>
       </nav>
+      <button class="toggle" id="mode">Toggle theme</button>
     </div>
   </header>
 
-  <!-- HERO SPLIT -->
-  <section class="container hero" id="home">
-    <div class="split">
-      <aside class="card">
-        <div class="card-inner">
-          <div class="avatar" aria-label="Your photo"></div>
-          <h2 class="who">Sachin</h2>
-          <div class="role">AI ENGINEER</div>
-        </div>
-        <div class="social">
-          <a href="mailto:sachinuk145@gmail.com" title="Email">✉</a>
-          <a href="https://twitter.com/" target="_blank" title="Twitter">𝕏</a>
-          <a href="https://www.linkedin.com/in/sachin-14/" target="_blank" title="LinkedIn">in</a>
-          <a href="https://www.instagram.com/" target="_blank" title="Instagram">◉</a>
-        </div>
-      </aside>
-
-      <div class="hello">
-        <h1>Hello</h1>
-        <p>Here's who I am & what I do. I build end‑to‑end AI systems: Retrieval‑Augmented Generation, agentic workflows, evaluations, and production on AWS — with clean UX and measurable outcomes.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Hi, I'm Sachin</div>
+        <h1 class="display">I like making fun, interactive things with code.</h1>
+        <p class="lead">I build AI products (RAG, agents, LLMOps) and sometimes talk & write about them. This site collects my projects, notes, and playful experiments.</p>
         <div class="cta">
-          <a class="btn primary" href="Sachin_AI.pdf" target="_blank">Resume</a>
-          <a class="btn" href="#projects">Projects</a>
-          <a class="btn" href="#experience">Experience</a>
-          <a class="btn" href="#skills">Skills</a>
-          <a class="btn" href="#education">Education</a>
+          <a class="btn primary" href="#projects">See projects</a>
+          <a class="btn" href="#writing">Read notes</a>
+          <a class="btn" href="Sachin_AI.pdf" target="_blank">Resume</a>
         </div>
+      </div>
+      <div class="blob-wrap">
+        <div class="blob-card">
+          <div class="blob" aria-hidden></div>
+        </div>
+        <div class="note">tiny animated blob — no JS</div>
       </div>
     </div>
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="wrap section">
+  <section id="projects">
     <div class="container">
-      <h2>Projects</h2>
+      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Projects</h2></div>
       <div class="grid">
-        <article class="card2">
-          <h3>Medical Case Analysis — RAG</h3>
-          <p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama‑3‑8B generation • evals (similarity/BLEU/ROUGE) — fewer hallucinations.</p>
-        </article>
-        <article class="card2">
-          <h3>Tender Automation (RPA + RAG)</h3>
-          <p class="muted">OCR → categorize → doc Q&A; major reduction in cycle time & manual effort.</p>
-        </article>
-        <article class="card2">
-          <h3>Web Social Media Analytics</h3>
-          <p class="muted">500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy.</p>
-        </article>
+        <article class="card"><h3>Medical Case Analysis — RAG</h3><p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama‑3‑8B generation • evals (similarity/BLEU/ROUGE) — fewer hallucinations.</p></article>
+        <article class="card"><h3>Tender Automation (RPA + RAG)</h3><p class="muted">OCR → categorize → doc Q&A; major reduction in cycle time & manual effort.</p></article>
+        <article class="card"><h3>Web Social Media Analytics</h3><p class="muted">500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" class="wrap section">
+  <!-- WRITING / SPEAKING / WORKSHOP / PLAYING (as simple lists) -->
+  <section id="writing">
     <div class="container">
-      <h2>Experience</h2>
+      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Writing</h2></div>
       <div class="grid">
-        <article class="card2">
-          <h3>Data Engineer — Prestige Windows (UK)</h3>
-          <p class="muted">Automated PDF/web extraction, Power BI dashboards; sales ↑ ~40%.</p>
-        </article>
-        <article class="card2">
-          <h3>Software Engineer (Data & BI) — Q3 Technologies</h3>
-          <p class="muted">RAG chatbot, tender automation, OpenAI‑MySQL, sentiment models; ETL for 1M+ rows.</p>
-        </article>
-        <article class="card2">
-          <h3>Data Analyst Intern — iNeuron.ai</h3>
-          <p class="muted">Analyzed 300+ patient records; reduced rework by 25%.</p>
-        </article>
+        <article class="card"><h3>How I evaluate RAG systems</h3><p class="muted">Notes on retrieval quality, answer faithfulness, and noisy data.</p></article>
+        <article class="card"><h3>LangGraph mental model</h3><p class="muted">Thinking in state + edges instead of long prompt chains.</p></article>
+        <article class="card"><h3>Prompt versioning</h3><p class="muted">Why prompts should be artifacts with diffs & rollback.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section id="skills" class="wrap section">
+  <section id="speaking">
     <div class="container">
-      <h2>Skills</h2>
+      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Speaking</h2></div>
       <div class="grid">
-        <article class="card2"><h3>AI/LLMOps</h3><p class="muted">RAG • Agents • Guardrails • Evals • LangChain/LangGraph</p></article>
-        <article class="card2"><h3>Data</h3><p class="muted">SQL • PySpark • Databricks • Modeling</p></article>
-        <article class="card2"><h3>Apps & Viz</h3><p class="muted">FastAPI • Streamlit • Power BI • DAX</p></article>
+        <article class="card"><h3>AI for operations teams</h3><p class="muted">A talk on automating back‑office flows with RPA+RAG.</p></article>
+        <article class="card"><h3>SVG + LLMs?</h3><p class="muted">Playful ideas: structured SVG manipulation using tools.</p></article>
+        <article class="card"><h3>From notebooks to prod</h3><p class="muted">Owning the last mile with tests, evals & guardrails.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section id="education" class="wrap section">
+  <section id="workshop">
     <div class="container">
-      <h2>Education</h2>
+      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Workshops</h2></div>
       <div class="grid">
-        <article class="card2">
-          <h3>MSc Big Data Analytics (Distinction)</h3>
-          <p class="muted">Domain‑tuned RAG for medical case analysis; Bio_ClinicalBERT + FAISS + MedLlama‑3‑8B.</p>
-        </article>
-        <article class="card2">
-          <h3>BTech (Computer Science)</h3>
-          <p class="muted">Foundations in DS/Algo, DBMS, and software engineering.</p>
-        </article>
-        <article class="card2">
-          <h3>Certifications</h3>
-          <p class="muted">AWS Bedrock • Power BI • PyTorch/TensorFlow • Prompt Engineering</p>
-        </article>
+        <article class="card"><h3>Rapid RAG</h3><p class="muted">Hands‑on: embedding choices, chunking, and evals.</p></article>
+        <article class="card"><h3>Power BI for AI teams</h3><p class="muted">Tell the story with DAX and simple visuals.</p></article>
+        <article class="card"><h3>Agents with guardrails</h3><p class="muted">Structured outputs and safe tool use.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="playing">
+    <div class="container">
+      <div class="sec-head"><span class="sq" aria-hidden></span><h2>Playing</h2></div>
+      <div class="grid">
+        <article class="card"><h3>Text morphing</h3><p class="muted">A CSS‑only headline morph experiment.</p></article>
+        <article class="card"><h3>Starfield</h3><p class="muted">Canvas dots with parallax based on mouse.</p></article>
+        <article class="card"><h3>Gooey buttons</h3><p class="muted">Blobs + filters + micro‑interactions.</p></article>
       </div>
     </div>
   </section>
 
   <!-- CONTACT / FOOTER -->
-  <section id="contact" class="wrap section">
-    <div class="container">
-      <h2>Contact</h2>
-      <div class="cta" style="gap:12px;flex-wrap:wrap">
-        <a class="btn" href="mailto:sachinuk145@gmail.com">📧 Email</a>
-        <a class="btn" href="https://wa.me/919013586896" target="_blank">💬 WhatsApp</a>
-        <a class="btn" href="https://www.linkedin.com/in/sachin-14/" target="_blank"> LinkedIn</a>
-        <a class="btn" href="https://github.com/sachin14596" target="_blank"> GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-      <div>© <span id="y"></span> Sachin</div>
-      <div>Built with HTML/CSS • GitHub Pages</div>
+  <footer class="container footer" id="contact">
+    <div>© <span id="y"></span> Sachin</div>
+    <div class="tags">
+      <a class="tag" href="mailto:sachinuk145@gmail.com">✉ Email</a>
+      <a class="tag" href="https://www.linkedin.com/in/sachin-14/" target="_blank">in LinkedIn</a>
+      <a class="tag" href="https://github.com/sachin14596" target="_blank">GitHub</a>
+      <a class="tag" href="Sachin_AI.pdf" target="_blank">⬇ CV</a>
     </div>
   </footer>
 
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+  <script>
+    // Current year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Simple light/dark toggle — stores preference in localStorage
+    const btn=document.getElementById('mode');
+    const root=document.documentElement;
+    const key='cassieInspiredTheme';
+    const saved=localStorage.getItem(key);
+    if(saved){ root.setAttribute('data-theme', saved); }
+    btn.addEventListener('click',()=>{
+      const cur=root.getAttribute('data-theme');
+      const next=cur==='light'?null:'light';
+      if(next){ root.setAttribute('data-theme','light'); localStorage.setItem(key,'light'); }
+      else { root.removeAttribute('data-theme'); localStorage.removeItem(key); }
+    });
+  </script>
 </body>
 </html>
