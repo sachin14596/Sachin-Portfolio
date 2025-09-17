@@ -1,176 +1,218 @@
+<!--
+===============================================================================
+Portfolio — Cassie-style (updated)
+Sections guide (search for these anchors):
+  S01: <HEAD> ................................. lines ~20–120
+  S02: Base tokens + resets (CSS) ............. lines ~125–250
+  S03: Layout primitives (CSS) ................ lines ~255–355
+  S04: HERO styles (CSS) ...................... lines ~360–445   << hero rules
+  S05: Pills / Nav styles (CSS) ............... lines ~450–535
+  S06: Utility classes (CSS) .................. lines ~540–625
+  S07: <HEADER> nav (HTML) .................... lines ~640–705
+  S08: HERO (HTML) ............................ lines ~710–780   << hero markup
+  S09: Placeholder sections (HTML) ............ lines ~785–960
+===============================================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- =========================================================
-       SECTION 01 — HEAD & GLOBALS
-       Purpose: metadata, fonts, color tokens, resets, base styles
-       ========================================================= -->
+  <!-- ======================== S01: <HEAD> ======================== -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sachin — Cassie-style Portfolio</title>
-  <meta name="description" content="Sachin • AI Engineer — projects, notes, resume" />
+  <meta name="description" content="I like making fun, interactive things with code." />
 
-  <!-- System-safe fonts; you can plug custom later -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <!-- Favicons (optional) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💻%3C/text%3E%3C/svg%3E">
 
+  <!-- Optional: self-host the same font names as cassie.codes (drop files in /fonts) -->
   <style>
-    /* ---------- Color tokens (Cassie-day palette inspired) ---------- */
-    :root{
-      --mint:#6fdcbf;            /* mint panel */
-      --mint-d:#55af96;
-      --lilac:#ae8fdb;           /* accents */
-      --sherbet:#fef8b4;         /* soft yellow */
-      --ink:#2b2b2b;             /* main text */
-      --bg:#efedf0;              /* light gray page bg (left side) */
-      --white:#fff;
-      --line:#dcdcdc;
-
-      /* UI */
-      --shadow:0 20px 40px rgba(0,0,0,.06);
-      --radius:999px;
+    /* Self-hosted font faces (will be used if you add the files under /fonts/) */
+    @font-face{
+      font-family:Mosk;
+      font-style:normal;
+      font-weight:600;
+      font-display:swap;
+      src:url("/fonts/mosk-600.woff2") format("woff2"),
+          url("/fonts/mosk-600.woff") format("woff");
     }
-
-    /* ---------- Reset-ish ---------- */
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      font:16px/1.65 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
-    }
-    img{max-width:100%;display:block}
-    a{color:inherit;text-decoration:none}
-
-    .wrapper{max-width:1200px;margin:0 auto;padding:0 24px}
-
-    /* =========================================================
-       SECTION 02 — TOP NAV (pills only; brand/toggle removed)
-       ========================================================= */
-    header.site-head{
-      position:sticky; top:0; z-index:40;
-      background:rgba(255,255,255,.85);
-      -webkit-backdrop-filter:saturate(120%) blur(8px);
-              backdrop-filter:saturate(120%) blur(8px);
-      border-bottom:1px solid var(--line);
-    }
-    .site-head__inner{
-      display:flex; align-items:center; justify-content:center;
-      gap:18px; padding:12px 0;
-    }
-    .pills{display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:center;}
-    .pill{
-      font-weight:700; font-size:14px; letter-spacing:.02em;
-      border:2px solid #222; padding:.55rem .9rem;
-      border-radius:999px; background:#fff;
-      box-shadow:0 3px 0 #222;
-    }
-    .pill::before{content:"• "; color:#7d7d7d}
-
-    /* =========================================================
-       SECTION 03 — HERO (split background & right-aligned content)
-       ========================================================= */
-    .hero{
-      position:relative; min-height:92vh; display:grid;
-      /* give the right/mint side a little more space */
-      grid-template-columns: 40% 60%;
-    }
-    .hero::after{
-      /* mint panel fills the RIGHT 60% */
-      content:""; position:absolute; inset:0 0 0 40%;
-      background:var(--mint);
-      z-index:0;
-    }
-    .hero__grid{
-      position:relative; z-index:1;
-      display:grid; grid-template-columns: 40% 60%; width:100%;
-    }
-    .hero__art{min-height:48vh;}    /* placeholder left column */
-    .hero__content{grid-column:2;}  /* <-- forces content to RIGHT column */
-
-    
-    /* Place copy inside the right column */
-    .hero__content{
-      grid-column:2; padding: clamp(24px, 5vw, 56px) clamp(22px, 4vw, 48px);
-      display:flex; flex-direction:column; gap:20px; align-self:center;
-    }
-    .eyebrow{
-      font-weight:800; letter-spacing:.06em; font-size:13px;
-      display:inline-block; transform:rotate(-5deg);
-      background:linear-gradient(transparent 55%, var(--sherbet) 55%);
-      padding:.2rem .35rem;
-      width:fit-content;
-    }
-    .hero h1{
-      /* smaller than before + natural wrapping */
+    @font-face{
+      font-family:Mosk;
+      font-style:normal;
       font-weight:900;
-      /* smaller so it wraps naturally like a paragraph */
-      font-size:clamp(32px, 5.0vw, 56px);
-      line-height:1.18;
-      letter-spacing:.01em;
-      max-width:26ch;   /* paragraph feel */
+      font-display:swap;
+      src:url("/fonts/mosk-900.woff2") format("woff2"),
+          url("/fonts/mosk-900.woff") format("woff");
+    }
+    @font-face{
+      font-family:Jenthill;
+      font-style:normal;
+      font-weight:400;
+      font-display:swap;
+      src:url("/fonts/jenthill.woff2") format("woff2"),
+          url("/fonts/jenthill.woff") format("woff");
+    }
+  </style>
+
+  <!-- ======================== S02: Base tokens + resets (CSS) ======================== -->
+  <style>
+    /* ---- Design tokens (same hues as Cassie’s day theme) ---- */
+    :root{
+      --mint: hsl(164 61% 65%);         /* #6fdcbf */
+      --mint-up: hsl(148 35% 74%);
+      --mint-down: hsl(163 36% 51%);
+      --lilac: hsl(264 51% 71%);        /* #ae8fdb */
+      --sea: hsl(189 58% 65%);
+      --peach: hsl(4 65% 85%);
+      --rose: hsl(344 56% 69%);
+      --paper: hsl(300 11% 96%);        /* light grey background */
+      --paper-2: hsl(210 4% 98%);
+      --ink: hsl(0 0% 25%);             /* dark text */
+      --ink-soft: hsl(0 0% 40%);
+      --ring: var(--ink);
+    }
+
+    /* ---- Reset (minimal) ---- */
+    *,*::before,*::after{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
       margin:0;
-      word-break:normal;
-      hyphens:manual;
+      color:var(--ink);
+      background:var(--paper);
+      font:400 16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     }
-    /* Cassie-style outlined keyword */
+    img{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
+    h1,h2,h3,h4,h5,h6,p{ margin:0; }
+    :focus-visible{ outline:3px solid var(--ring); outline-offset:2px; }
+  </style>
+
+  <!-- ======================== S03: Layout primitives (CSS) ======================== -->
+  <style>
+    .wrapper{ width:min(95%, 1200px); margin-inline:auto; }
+    .stack > * + *{ margin-top: var(--stack, 1rem); }
+    .row{ display:flex; gap:1rem; align-items:center; }
+    .space-between{ justify-content:space-between; }
+  </style>
+
+  <!-- ======================== S04: HERO styles (CSS) ======================== -->
+  <style>
+    /* The split background (left paper 40% / right mint 60%) */
+    .hero{
+      /* The gradient guarantees a crisp split regardless of viewport */
+      background: linear-gradient(to right, var(--paper) 40%, var(--mint) 0);
+    }
+    .hero__inner{
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      align-items: center;
+    }
+    /* Put the copy in the RIGHT (mint) column */
+    .hero__content{
+      grid-column: 2;
+      padding-left: clamp(16px, 3vw, 40px);
+      padding-right: clamp(16px, 3vw, 56px);
+    }
+
+    /* Eyebrow label */
+    .hi{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      font:700 0.95rem/1.2 Mosk, system-ui, sans-serif;
+      letter-spacing:.02em;
+      color:var(--ink);
+    }
+    .hi__chip{
+      padding:.35rem .6rem;
+      border:2px solid var(--ink);
+      background: var(--paper);
+      box-shadow: .35rem .35rem 0 0 var(--ink);
+      border-radius: .35rem;
+    }
+
+    /* Headline — paragraph-like, not one word per line */
+    .hero h1{
+      margin: .85rem 0 .85rem 0;
+      font-family: Mosk, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight:900;
+      /* Responsive headline size similar to Cassie’s proportions */
+      font-size: clamp(32px, 5.2vw, 56px);
+      line-height: 1.18;
+      max-width: 26ch;  /* keeps it paragraph-like */
+      letter-spacing:.015em;
+    }
+    /* Outlined words like "fun" / "write" */
     .outline{
-      color:transparent;
-      -webkit-text-stroke:1.5px #2b2b2b;
-      text-shadow:none;
-    }
-    .hero p.lede{
-      margin:4px 0 14px;
-      max-width:52ch;
-      color:#2d2d2d;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--ink);
+      text-stroke: 2px var(--ink);
     }
 
-    /* Buttons row */
-    .cta{display:flex; gap:12px; flex-wrap:wrap}
+    .hero p{
+      margin-top: .75rem;
+      color: var(--ink-soft);
+      font-size: clamp(16px, 1.3vw, 18px);
+      max-width: 55ch;
+    }
+
+    /* CTA buttons (optional) */
+    .cta-row{ display:flex; gap:.8rem; margin-top:1.1rem; }
     .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      border-radius:999px; padding:.7rem 1.1rem;
-      font-weight:800; background:#fff; border:2px solid #222;
-      box-shadow:0 3px 0 #222;
+      position:relative;
+      display:inline-block;
+      font:600 0.95rem/1 Mosk, system-ui, sans-serif;
+      padding:.65rem 1.1rem;
+      border:2px solid var(--ink);
+      background:var(--paper);
+      color:var(--ink);
+      box-shadow:.35rem .35rem 0 0 var(--ink);
+      border-radius:.65rem;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
-    .btn.primary{background:var(--ink); color:#fff; border-color:#222}
+    .btn:hover{ transform: translate(.15rem,.15rem); box-shadow:.2rem .2rem 0 0 var(--ink); }
+  </style>
 
-    /* =========================================================
-       SECTION 04 — SECTIONS (Projects/Experience/etc.)
-       (kept simple so focus stays on the hero while we iterate)
-       ========================================================= */
-    section.wrap{border-top:1px solid var(--line); padding:42px 0; background:#fff}
-    .section h2{margin:0 0 12px; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:#444}
-    .grid{display:grid; gap:16px}
-    @media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card2{border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); background:#fff}
-    .muted{color:#6b7280}
-
-    /* =========================================================
-       SECTION 05 — FOOTER
-       ========================================================= */
-    footer.footer{display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between; color:#6b7280; padding:22px 24px; border-top:1px solid var(--line); background:#fff}
-    
-    /* ---------- Responsive hero stacking ---------- */
-    @media(max-width:900px){
-      .hero{grid-template-columns:1fr}
-      .hero::after{inset:35% 0 0 0;}            /* mint from 35% height down */
-      .hero__grid{grid-template-columns:1fr}
-      .hero__content{grid-column:auto}
-      .hero h1{max-width:26ch}
+  <!-- ======================== S05: Pills / nav styles (CSS) ======================== -->
+  <style>
+    .topbar{
+      position: sticky; top:0; z-index:10;
+      backdrop-filter: saturate(140%) blur(6px);
+      background: color-mix(in oklab, var(--paper) 85%, white 15%);
+      border-bottom: 2px solid var(--ink);
     }
+    .pills{ display:flex; gap:.8rem; padding:.75rem 0; justify-content:center; }
+    .pill{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.55rem 1rem;
+      border:2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      box-shadow: .25rem .25rem 0 0 var(--ink);
+      font:700 .95rem/1 Mosk, system-ui, sans-serif;
+    }
+    .pill::before{
+      content:"•"; font-weight:900;
+    }
+    .pill:hover{ transform: translate(.15rem,.15rem); box-shadow:.15rem .15rem 0 0 var(--ink); }
+  </style>
+
+  <!-- ======================== S06: Utilities (CSS) ======================== -->
+  <style>
+    .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .pad-y-lg{ padding-block: min(7vh, 5rem); }
+    .mb-2{ margin-bottom:.5rem; }
   </style>
 </head>
 <body>
-
-  <!-- =========================================================
-       SECTION 02 — TOP NAV (pills only)
-       ========================================================= -->
-  <header class="site-head">
-    <div class="wrapper site-head__inner">
-      <nav aria-label="Primary">
+  <!-- ======================== S07: <HEADER> nav ======================== -->
+  <header class="topbar">
+    <div class="wrapper row space-between" style="align-items:center;">
+      <span class="sr-only">Sachin – portfolio</span>
+      <!-- Empty spacer keeps pills visually centered on large screens -->
+      <div aria-hidden="true"></div>
+      <nav aria-label="Site">
         <ul class="pills" role="list">
           <li><a class="pill" href="#writing">writing</a></li>
           <li><a class="pill" href="#speaking">speaking</a></li>
@@ -178,79 +220,76 @@
           <li><a class="pill" href="#playing">playing</a></li>
         </ul>
       </nav>
-      <!-- brand & dark-mode toggle intentionally removed per request -->
+      <div aria-hidden="true"></div>
     </div>
   </header>
 
-  <!-- =========================================================
-       SECTION 03 — HERO
-       ========================================================= -->
-  <section class="hero" id="home">
-    <div class="hero__grid wrapper">
-      <!-- left column reserved for illustration (kept empty for now) -->
-      <div class="hero__art" aria-hidden="true"></div>
-  
-      <!-- RIGHT column content -->
+  <!-- ======================== S08: HERO (HTML) ======================== -->
+  <section class="hero pad-y-lg" id="home">
+    <div class="hero__inner wrapper">
+      <!-- left column intentionally empty to preserve the split -->
+      <div aria-hidden="true"></div>
+
+      <!-- RIGHT column (mint side) -->
       <div class="hero__content">
-        <div class="eyebrow">👋 Hi, I’m Sachin</div>
-  
+        <div class="hi mb-2">
+          <span aria-hidden="true">👋</span>
+          <span class="hi__chip">Hi, I’m Sachin</span>
+        </div>
+
         <h1>
           I like making <span class="outline">fun</span>, interactive things with code.
           I also talk &amp; <span class="outline">write</span> about those things.
         </h1>
-  
-        <p class="lede">
+
+        <p>
           I build AI products (RAG, agents, LLMOps) and sometimes talk &amp; write about them.
           This site collects my projects, notes, and playful experiments.
         </p>
-  
-        <div class="cta">
-          <a class="btn primary" href="#projects">See projects</a>
-          <a class="btn" href="#writing">Read notes</a>
-          <a class="btn" href="Sachin_AI.pdf" target="_blank" rel="noopener">Resume</a>
+
+        <div class="cta-row">
+          <a class="btn" href="#projects">See projects</a>
+          <a class="btn" href="#notes">Read notes</a>
+          <a class="btn" href="#resume">Résumé</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ======================== S09: Placeholder sections ======================== -->
+  <main id="main" class="wrapper stack" style="--stack:4rem;">
+    <section id="projects">
+      <h2 style="font:900 2rem/1.2 Mosk,system-ui,sans-serif; letter-spacing:.02em;">Projects</h2>
+      <p style="max-width:65ch; color:var(--ink-soft);">Add your cards here…</p>
+    </section>
 
-  <!-- =========================================================
-       SECTION 04 — PROJECTS (sample cards so page has structure)
-       ========================================================= -->
-  <section id="projects" class="wrap section">
-    <div class="wrapper">
-      <h2>Projects</h2>
-      <div class="grid">
-        <article class="card2">
-          <h3>Medical Case Analysis — RAG</h3>
-          <p class="muted">Bio_ClinicalBERT + FAISS retrieval • MedLlama-3-8B generation • evals — fewer hallucinations.</p>
-        </article>
-        <article class="card2">
-          <h3>Tender Automation (RPA + RAG)</h3>
-          <p class="muted">OCR → categorize → doc Q&A; big cut in cycle time & manual effort.</p>
-        </article>
-        <article class="card2">
-          <h3>Web Social Media Analytics</h3>
-          <p class="muted">500K+ tweets • topic modeling • network centrality • classifiers up to 96.9% accuracy.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+    <section id="writing">
+      <h2 style="font:900 2rem/1.2 Mosk,system-ui,sans-serif; letter-spacing:.02em;">Writing</h2>
+      <p style="max-width:65ch; color:var(--ink-soft);">Blog list placeholder…</p>
+    </section>
 
-  <!-- (You can keep adding Experience, Skills, etc. sections here using the same pattern) -->
+    <section id="speaking">
+      <h2 style="font:900 2rem/1.2 Mosk,system-ui,sans-serif; letter-spacing:.02em;">Speaking</h2>
+      <p style="max-width:65ch; color:var(--ink-soft);">Talks placeholder…</p>
+    </section>
 
-  <!-- =========================================================
-       SECTION 05 — FOOTER
-       ========================================================= -->
-  <footer class="footer">
-    <div class="wrapper" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-      <div>© <span id="y"></span> Sachin</div>
-      <div>Built with HTML/CSS • GitHub Pages</div>
-    </div>
+    <section id="workshop">
+      <h2 style="font:900 2rem/1.2 Mosk,system-ui,sans-serif; letter-spacing:.02em;">Workshop</h2>
+      <p style="max-width:65ch; color:var(--ink-soft);">Workshops placeholder…</p>
+    </section>
+
+    <section id="playing" class="pad-y-lg">
+      <h2 style="font:900 2rem/1.2 Mosk,system-ui,sans-serif; letter-spacing:.02em;">Playing</h2>
+      <p style="max-width:65ch; color:var(--ink-soft);">Fun demos placeholder…</p>
+    </section>
+  </main>
+
+  <footer class="wrapper pad-y-lg" style="border-top:2px solid var(--ink);">
+    <p style="color:var(--ink-soft);">© <span id="y"></span> Sachin. Built in a Cassie-style theme.</p>
   </footer>
 
   <script>
-    // Small helper: current year in footer
+    // Cosmetic year
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
