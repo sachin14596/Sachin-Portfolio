@@ -74,19 +74,23 @@
        ========================================================= */
     .hero{
       position:relative; min-height:92vh; display:grid;
-      /* Two columns: left placeholder, right mint content area */
-      grid-template-columns: 44% 56%;
+      /* give the right/mint side a little more space */
+      grid-template-columns: 40% 60%;
     }
-    /* Mint panel on the right side */
     .hero::after{
-      content:""; position:absolute; inset:0 0 0 44%;
+      /* mint panel fills the RIGHT 60% */
+      content:""; position:absolute; inset:0 0 0 40%;
       background:var(--mint);
       z-index:0;
     }
     .hero__grid{
-      position:relative; z-index:1; /* sit above the mint panel */
-      display:grid; grid-template-columns: 44% 56%; width:100%;
+      position:relative; z-index:1;
+      display:grid; grid-template-columns: 40% 60%; width:100%;
     }
+    .hero__art{min-height:48vh;}    /* placeholder left column */
+    .hero__content{grid-column:2;}  /* <-- forces content to RIGHT column */
+
+    
     /* Place copy inside the right column */
     .hero__content{
       grid-column:2; padding: clamp(24px, 5vw, 56px) clamp(22px, 4vw, 48px);
@@ -102,11 +106,14 @@
     .hero h1{
       /* smaller than before + natural wrapping */
       font-weight:900;
-      font-size:clamp(36px, 6.2vw, 68px);
-      line-height:1.12;
+      /* smaller so it wraps naturally like a paragraph */
+      font-size:clamp(32px, 5.0vw, 56px);
+      line-height:1.18;
       letter-spacing:.01em;
-      max-width:22ch;       /* keeps it paragraph-ish */
+      max-width:26ch;   /* paragraph feel */
       margin:0;
+      word-break:normal;
+      hyphens:manual;
     }
     /* Cassie-style outlined keyword */
     .outline{
@@ -180,24 +187,23 @@
        ========================================================= -->
   <section class="hero" id="home">
     <div class="hero__grid wrapper">
-      <!-- Left column is intentionally empty (room for illustration later) -->
-      <div aria-hidden="true"></div>
-
-      <!-- Right column: headline + lede + buttons -->
+      <!-- left column reserved for illustration (kept empty for now) -->
+      <div class="hero__art" aria-hidden="true"></div>
+  
+      <!-- RIGHT column content -->
       <div class="hero__content">
         <div class="eyebrow">👋 Hi, I’m Sachin</div>
-
-        <!-- Headline as a readable paragraph (no forced word-per-line) -->
+  
         <h1>
           I like making <span class="outline">fun</span>, interactive things with code.
           I also talk &amp; <span class="outline">write</span> about those things.
         </h1>
-
+  
         <p class="lede">
           I build AI products (RAG, agents, LLMOps) and sometimes talk &amp; write about them.
           This site collects my projects, notes, and playful experiments.
         </p>
-
+  
         <div class="cta">
           <a class="btn primary" href="#projects">See projects</a>
           <a class="btn" href="#writing">Read notes</a>
@@ -206,6 +212,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- =========================================================
        SECTION 04 — PROJECTS (sample cards so page has structure)
