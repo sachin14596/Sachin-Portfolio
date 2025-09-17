@@ -3,226 +3,208 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sachin — Cassie-style Portfolio</title>
+  <title>Sachin — Portfolio</title>
 
-  <!-- ============  DESIGN TOKENS  ============ -->
   <style>
+    /* =========================
+       SECTION: Design Tokens
+       ========================= */
     :root{
-      /* Brand palette (Cassie-ish) */
-      --mint: hsl(164, 61%, 65%);
-      --mint-ink: hsl(163, 36%, 51%);
-      --paper: hsl(300, 11%, 96%);    /* light grey paper */
-      --ink: #404040;                 /* main text / borders */
-      --shadow: #303145;              /* offset shadow */
-      --chip: #ffffff;                /* pill bg */
-      --chip-ink: #2a2a2a;
+      --paper: #eeebef;      /* light grey background */
+      --mint:  #6fdcbf;      /* mint hero panel */
+      --ink:   #2e2e2e;      /* main text */
+      --ink-2: #404040;      /* borders / accents */
+      --pill-bg: #fff;
+      --pill-shadow: #2e2e2e;
     }
 
-    /* Global reset & base */
-    *,*::before,*::after{ box-sizing: border-box; }
-    html,body{ margin:0; padding:0; }
-    body{
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
+    /* =========================
+       SECTION: Base / Reset
+       ========================= */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color: var(--ink);
       background: var(--paper);
-      line-height: 1.45;
+      line-height: 1.5;
     }
-    img{ max-width:100%; display:block; height:auto; }
+    img{ max-width: 100%; display:block; }
 
-    /* ============  TOP NAV  ============ */
+    /* =========================
+       SECTION: Header (center pills)
+       ========================= */
     .site-head{
-      position: sticky; top:0; z-index:10;
+      position: sticky;
+      top: 0;
+      z-index: 100;
       background: var(--paper);
-      border-bottom: 2px solid var(--ink);
+      /* removed the black separator line */
+      /* border-bottom: 2px solid var(--ink-2);  <-- deleted */
+      padding: 14px 12px;
     }
-    .inner{
-      padding: .75rem clamp(1rem, 4vw, 2rem);
-      max-width: 1200px; margin-inline:auto;
-      display:flex; align-items:center; justify-content:flex-end; gap:.75rem;
+    .nav{
+      max-width: 1200px;
+      margin: 0 auto;                 /* center the nav container */
+      display: flex;
+      justify-content: center;        /* center pills horizontally */
+      align-items: center;
+      gap: 16px;
     }
-
-    /* remove ALL possible bullets / markers */
-    .nav-list{ display:flex; gap:.75rem; padding:0; margin:0; list-style:none; }
-    .nav-list li{ list-style:none; }
-    .nav-list li::marker{ content:""; }
-
+    .pill-list{
+      list-style: none;               /* no bullets at all */
+      display:flex; gap: 14px; margin:0; padding:0;
+    }
     .pill{
-      --r: 999px;
+      --r: 22px;
       display:inline-block;
-      padding: .6rem 1.1rem;
-      background: var(--chip);
-      color: var(--chip-ink);
-      text-decoration: none;
-      font-weight: 700;
-      border: 2px solid var(--ink);
+      padding: 10px 18px;
+      border: 2px solid var(--ink-2);
       border-radius: var(--r);
-      box-shadow: .4rem .4rem 0 0 var(--shadow);
-      position:relative;
-      transition: transform .12s ease, box-shadow .12s ease;
+      background: var(--pill-bg);
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      box-shadow: 6px 6px 0 0 var(--pill-shadow); /* Cassie-like offset shadow */
+      position: relative;
     }
-    /* Make sure no pseudo content creates dots */
-    .pill::before,
-    .pill::after{ content:""; }
+    /* remove any stray generated content */
+    .pill::before, .pill::after{ content: none !important; }
 
-    .pill:hover{
-      transform: translate(.1rem,-.1rem);
-      box-shadow: .3rem .3rem 0 0 var(--shadow);
-    }
-
-    /* ============  HERO  ============ */
+    /* =========================
+       SECTION: Hero (2-column layout)
+       ========================= */
     .hero{
-      min-height: calc(100vh - 64px);
-      display:grid;
-      grid-template-columns: 40% 60%;
-    }
-    .hero-left{
       background: var(--paper);
-      position: relative; /* to anchor illustration */
-      border-right: 2px solid var(--ink);
     }
-    .hero-right{
+    .hero__inner{
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 40% 60%; /* left image 40%, right mint 60% */
+    }
+
+    /* Left column image – flush, no frame/shadow */
+    .hero__media{
+      margin: 0;               /* no gaps */
+      /* no border-right -> looks merged with mint panel */
+      /* border-right: 8px solid var(--ink-2);  <-- removed */
+    }
+    .hero__media img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* fill the whole column nicely */
+      border: none;
+      box-shadow: none;        /* remove dark frame/shadow */
+      transform: none;         /* ensure no tilt */
+      border-radius: 0;        /* square edges to merge cleanly */
+    }
+
+    /* Right column copy on mint panel */
+    .hero__copy{
       background: var(--mint);
-      padding: clamp(1.25rem, 3vw, 2rem) clamp(1.2rem, 4vw, 3rem);
-      display:flex; align-items:center;
-    }
-    .intro{
-      max-width: 760px;
+      padding: clamp(28px, 6vw, 72px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .eyebrow{
-      display:inline-flex; align-items:center; gap:.4rem;
-      font-weight:700; margin: 0 0 .75rem 0;
-      padding: .2rem .55rem;
-      background:#fff8b4;
-      border:2px solid var(--ink);
-      box-shadow: .3rem .3rem 0 0 var(--shadow);
-      width:max-content;
+      display:inline-block;
+      font-weight: 800;
+      background: #ffe89a;
+      border: 2px solid #222;
+      box-shadow: 6px 6px 0 #222;
+      padding: 6px 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
     }
-    .intro h1{
-      font-size: clamp(1.8rem, 3vw + 1rem, 3.2rem);
-      line-height: 1.18;
-      margin: .5rem 0 1rem;
-      letter-spacing:.4px;
+    .hero__title{
+      font-size: clamp(28px, 5vw, 58px);
+      line-height: 1.15;
+      margin: 0 0 18px 0;
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: var(--ink);
     }
     .outline{
       color: transparent;
       -webkit-text-stroke: 2px var(--ink);
-      text-stroke: 2px var(--ink);
+      text-stroke: 2px var(--ink); /* progressive enhancement */
     }
-    .lede{
-      font-size: clamp(1rem, .5vw + .95rem, 1.15rem);
-      max-width: 60ch;
-      margin: 1rem 0 1.25rem;
-    }
-    .cta{ display:flex; gap:.6rem; flex-wrap:wrap; }
-    .btn{
-      --r: 14px;
-      display:inline-block;
-      padding:.55rem 1rem;
-      font-weight:700;
-      text-decoration:none; color:var(--ink);
-      background:#fff;
-      border:2px solid var(--ink);
-      border-radius: var(--r);
-      box-shadow: .35rem .35rem 0 0 var(--shadow);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .btn.ghost{ background: #f7f7f7; }
-    .btn:hover{ transform: translate(.06rem,-.06rem); box-shadow: .28rem .28rem 0 0 var(--shadow); }
-
-    /* === Left Illustration (AI robot in paper area) === */
-    .hero-illustration{
-      position:absolute;
-      left: clamp(.8rem, 2vw, 1.2rem);
-      right: clamp(.8rem, 2vw, 1.2rem);
-      bottom: clamp(1rem, 3vw, 1.6rem);
-      display:flex; justify-content:center;
-      pointer-events:none; /* don’t block clicks */
-    }
-    .hero-illustration img{
-      max-width: min(95%, 560px);
-      height:auto;
-      border: 2px solid var(--ink);
-      border-radius: 16px;
-      box-shadow: .6rem .6rem 0 0 var(--ink);
-      transform: rotate(-1deg);
-      filter: saturate(.95) contrast(1.02);
+    .hero__lede{
+      font-size: clamp(16px, 1.6vw, 20px);
+      margin: 8px 0 0 0;
+      max-width: 66ch;
+      color: #21302b;
     }
 
-    /* ============  SECTIONS (placeholders) ============ */
-    section{ padding: 3rem 1rem; }
-    .container{ max-width: 1100px; margin:auto; }
+    /* We REMOVED the CTA buttons block, so no styles for it */
 
-    /* ============  RESPONSIVE  ============ */
-    @media (max-width: 1024px){
-      .hero-illustration img{ max-width: 88%; }
-    }
-    @media (max-width: 860px){
-      .site-head{ position: static; }
-      .inner{ justify-content:center; flex-wrap:wrap; }
-      .hero{
-        grid-template-columns: 1fr;    /* stack */
+    /* =========================
+       SECTION: Responsive tweaks
+       ========================= */
+    @media (max-width: 900px){
+      .hero__inner{
+        grid-template-columns: 1fr;     /* stack for small screens */
       }
-      .hero-left{ display:none; }      /* prioritize text on mobile */
-      .hero-right{ padding-block: 2.2rem 2.8rem; }
-      .intro h1{ font-size: clamp(1.6rem, 4vw + 1rem, 2.4rem); }
+      .hero__media{
+        height: 44vh;                   /* keep some height for image on mobile */
+      }
+      .hero__copy{
+        padding-top: 28px;
+      }
+      .pill{ box-shadow: 4px 4px 0 0 var(--pill-shadow); }
+      .eyebrow{ box-shadow: 4px 4px 0 #222; }
     }
   </style>
 </head>
 <body>
 
-  <!-- =====================  HEADER / NAV  ===================== -->
+  <!-- =========================
+       SECTION: Header / Pills
+       ========================= -->
   <header class="site-head" role="banner">
-    <div class="inner">
-      <nav aria-label="Primary">
-        <ul class="nav-list">
-          <li><a class="pill" href="#writing">writing</a></li>
-          <li><a class="pill" href="#speaking">speaking</a></li>
-          <li><a class="pill" href="#workshop">workshop</a></li>
-          <li><a class="pill" href="#playing">playing</a></li>
-        </ul>
-      </nav>
-    </div>
+    <nav class="nav" aria-label="Primary">
+      <ul class="pill-list">
+        <li><a class="pill" href="#writing">writing</a></li>
+        <li><a class="pill" href="#speaking">speaking</a></li>
+        <li><a class="pill" href="#workshop">workshop</a></li>
+        <li><a class="pill" href="#playing">playing</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- =====================  HERO  ===================== -->
-  <section class="hero" id="home" aria-label="Intro">
-    <!-- Left 40% paper area with image -->
-    <div class="hero-left">
-      <figure class="hero-illustration" aria-hidden="true">
-        <!-- Put your image in repo root as airobot.jpg -->
-        <img src="airobot.jpg" alt="AI robot illustration" loading="lazy" decoding="async">
+  <!-- =========================
+       SECTION: Hero
+       ========================= -->
+  <section class="hero">
+    <div class="hero__inner">
+      <!-- Left: image fills 40% column, no dark borders -->
+      <figure class="hero__media">
+        <!-- Use your exact GitHub Pages path or keep local file name airobot.jpg -->
+        <img src="airobot.jpg" alt="Sachin's AI robot sitting with a tablet" />
       </figure>
-    </div>
 
-    <!-- Right 60% mint area with heading -->
-    <div class="hero-right">
-      <div class="intro">
-        <div class="eyebrow">👋 Hi, I'm Sachin</div>
+      <!-- Right: mint panel with heading & intro (CTAs removed) -->
+      <div class="hero__copy">
+        <span class="eyebrow">👋 Hi, I'm Sachin</span>
 
-        <h1>
+        <h1 class="hero__title">
           I like making <span class="outline">fun</span>, interactive things with code.
-          I also <span class="outline">talk</span> & <span class="outline">write</span> about those things.
+          I also <span class="outline">talk</span> &amp; <span class="outline">write</span> about those things.
         </h1>
 
-        <p class="lede">
+        <p class="hero__lede">
           I build AI products (RAG, agents, LLMOps) and sometimes share what I learn.
-          This site collects my projects, notes and playful experiments.
+          This site collects my projects, notes, and playful experiments.
         </p>
 
-        <div class="cta">
-          <a class="btn" href="#projects">See projects</a>
-          <a class="btn ghost" href="#writing">Read posts</a>
-          <a class="btn ghost" href="resume.pdf">Resume</a>
-        </div>
+        <!-- CTA block intentionally removed per your request -->
       </div>
     </div>
   </section>
 
-  <!-- =====================  PLACEHOLDER SECTIONS  ===================== -->
-  <section id="writing"><div class="container"><h2>Writing</h2><p>Articles coming soon…</p></div></section>
-  <section id="speaking" style="background:#fef8b4"><div class="container"><h2>Speaking</h2><p>Talks & workshops.</p></div></section>
-  <section id="workshop"><div class="container"><h2>Workshop</h2><p>SVG / Animation / Frontend.</p></div></section>
-  <section id="playing" style="background:#d0b6d1"><div class="container"><h2>Playing</h2><p>Codepens & experiments.</p></div></section>
+  <!-- (Optional) other sections go here -->
 
 </body>
 </html>
