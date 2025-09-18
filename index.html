@@ -1,110 +1,296 @@
-  <!-- =========================
-       SECTION: Content (append-only)
-       ========================= -->
-  <section id="about-section" class="wrap">
-    <h2>About Me</h2>
-    <p>
-      I’m an AI Engineer focused on building end-to-end systems—data pipelines, NLP/LLMs, RAG, Agents, and LLMOps—
-      that turn messy data into meaningful decisions. I love clean architectures, measurable impact, and shipping fast.
-    </p>
-  </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sachin — Portfolio</title>
 
-  <section id="experience-section" class="wrap">
-    <h2>Experience</h2>
-    <ul class="timeline">
-      <li>
-        <div class="t-badge">Aug 2024 – Nov 2024</div>
-        <h3>Data Engineer — Prestige Windows (UK)</h3>
-        <p>Automated PDF/web data extraction; Power BI dashboards; +15% revenue, +40% sales visibility.</p>
-      </li>
-      <li>
-        <div class="t-badge">Jan 2022 – Jan 2024</div>
-        <h3>Software Engineer (Data & BI) — Q3 Technologies</h3>
-        <p>RAG chatbot for IT/science docs; tender automation with RPA/OCR/RAG; NL-to-SQL insights.</p>
-      </li>
-      <li>
-        <div class="t-badge">Aug 2018 – Dec 2020</div>
-        <h3>Software Engineer — Goalwit Technologies</h3>
-        <p>End-to-end SQL/ETL, matchmaking logic, and engagement models powering product growth.</p>
-      </li>
-    </ul>
-  </section>
-
-  <section id="skills-section" class="wrap">
-    <h2>Skills</h2>
-    <div class="badge-grid">
-      <span class="badge">NLP</span><span class="badge">LLMs</span><span class="badge">RAG</span>
-      <span class="badge">Agents</span><span class="badge">LLMOps</span><span class="badge">Python</span>
-      <span class="badge">SQL</span><span class="badge">PyTorch</span><span class="badge">TensorFlow</span>
-      <span class="badge">LangChain</span><span class="badge">LangGraph</span><span class="badge">FAISS</span>
-      <span class="badge">AWS Bedrock</span><span class="badge">Power BI</span><span class="badge">Docker</span>
-    </div>
-  </section>
-
-  <section id="projects-section" class="wrap">
-    <h2>Projects</h2>
-    <div class="cards">
-      <article class="card">
-        <h3>Medical Case Analysis RAG</h3>
-        <p>Domain-specific RAG with Bio_ClinicalBERT + MedLlama-3-8B; higher similarity and ROUGE/BLEU; fewer hallucinations.</p>
-        <a class="card-link" href="#" aria-label="View project case study">Case Study →</a>
-      </article>
-      <article class="card">
-        <h3>Social Graph & Misinformation</h3>
-        <p>500K+ tweets, topic modeling + network analysis; identified cross-community influencers and clusters.</p>
-        <a class="card-link" href="#" aria-label="View project case study">Case Study →</a>
-      </article>
-      <article class="card">
-        <h3>Tender Automation (RPA + RAG)</h3>
-        <p>Automated extraction/categorization and Q&A over docs; ~80% manual effort reduction.</p>
-        <a class="card-link" href="#" aria-label="View project case study">Case Study →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- =========================
-       SECTION: Append-only Styles
-       ========================= -->
   <style>
-    .wrap{max-width:1100px;margin:0 auto;padding:56px 16px}
-    h2{font-size:clamp(22px,3vw,30px);margin:0 0 16px 0}
-    .timeline{list-style:none;margin:0;padding:0;display:grid;gap:18px}
-    .t-badge{display:inline-block;font-weight:800;background:#ffe89a;border:2px solid #222;
-      box-shadow:4px 4px 0 #222;padding:4px 8px;border-radius:6px;margin-bottom:6px}
-    .badge-grid{display:flex;flex-wrap:wrap;gap:10px}
-    .badge{background:#fff;border:2px solid var(--ink-2);border-radius:999px;padding:6px 12px;
-      box-shadow:4px 4px 0 var(--pill-shadow);font-weight:700}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:#fff;border:2px solid var(--ink-2);box-shadow:6px 6px 0 var(--pill-shadow);
-      padding:18px;border-radius:14px}
-    .card h3{margin:0 0 8px 0}
-    .card-link{font-weight:800;text-decoration:underline}
-    html{scroll-behavior:smooth}
+    /* =========================
+       SECTION: Design Tokens
+       ========================= */
+    :root{
+      --paper: #eeebef;      /* light grey background */
+      --mint:  #6fdcbf;      /* mint hero panel */
+      --ink:   #2e2e2e;      /* main text */
+      --ink-2: #404040;      /* borders / accents */
+      --pill-bg: #fff;
+      --pill-shadow: #2e2e2e;
+    }
+
+    /* =========================
+       SECTION: Base / Reset
+       ========================= */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+    img{ max-width: 100%; display:block; }
+
+    /* =========================
+       SECTION: Header (center pills)
+       ========================= */
+    .site-head{
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      /* removed the black separator line */
+      /* border-bottom: 2px solid var(--ink-2);  <-- deleted */
+      padding: 14px 12px;
+    }
+    .nav{
+      max-width: 1200px;
+      margin: 0 auto;                 /* center the nav container */
+      display: flex;
+      justify-content: center;        /* center pills horizontally */
+      align-items: center;
+      gap: 16px;
+    }
+    .pill-list{
+      list-style: none;               /* no bullets at all */
+      display:flex; gap: 14px; margin:0; padding:0;
+    }
+    .pill{
+      --r: 22px;
+      display:inline-block;
+      padding: 10px 18px;
+      border: 2px solid var(--ink-2);
+      border-radius: var(--r);
+      background: var(--pill-bg);
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      box-shadow: 6px 6px 0 0 var(--pill-shadow); /* Cassie-like offset shadow */
+      position: relative;
+    }
+    /* remove any stray generated content */
+    .pill::before, .pill::after{ content: none !important; }
+
+    /* =========================
+       SECTION: Hero (2-column layout)
+       ========================= */
+    .hero{
+      background: var(--paper);
+    }
+    .hero__inner{
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 40% 60%; /* left image 40%, right mint 60% */
+    }
+
+    /* Left column image – flush, no frame/shadow */
+    .hero__media{
+      margin: 0;               /* no gaps */
+      /* no border-right -> looks merged with mint panel */
+      /* border-right: 8px solid var(--ink-2);  <-- removed */
+    }
+    .hero__media img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* fill the whole column nicely */
+      border: none;
+      box-shadow: none;        /* remove dark frame/shadow */
+      transform: none;         /* ensure no tilt */
+      border-radius: 0;        /* square edges to merge cleanly */
+    }
+
+    /* Right column copy on mint panel */
+    .hero__copy{
+      background: var(--mint);
+      padding: clamp(28px, 6vw, 72px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .eyebrow{
+      display:inline-block;
+      font-weight: 800;
+      background: #ffe89a;
+      border: 2px solid #222;
+      box-shadow: 6px 6px 0 #222;
+      padding: 6px 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
+    }
+    .hero__title{
+      font-size: clamp(28px, 5vw, 58px);
+      line-height: 1.15;
+      margin: 0 0 18px 0;
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: var(--ink);
+    }
+    .outline{
+      color: transparent;
+      -webkit-text-stroke: 2px var(--ink);
+      text-stroke: 2px var(--ink); /* progressive enhancement */
+    }
+    .hero__lede{
+      font-size: clamp(16px, 1.6vw, 20px);
+      margin: 8px 0 0 0;
+      max-width: 66ch;
+      color: #21302b;
+    }
+
+    /* We REMOVED the CTA buttons block, so no styles for it */
+
+    /* =========================
+       SECTION: Responsive tweaks
+       ========================= */
+    @media (max-width: 900px){
+      .hero__inner{
+        grid-template-columns: 1fr;     /* stack for small screens */
+      }
+      .hero__media{
+        height: 44vh;                   /* keep some height for image on mobile */
+      }
+      .hero__copy{
+        padding-top: 28px;
+      }
+      .pill{ box-shadow: 4px 4px 0 0 var(--pill-shadow); }
+      .eyebrow{ box-shadow: 4px 4px 0 #222; }
+    }
   </style>
+</head>
+<body>
 
   <!-- =========================
-       SECTION: Tiny Router to map your existing pills
-       (No changes to your current markup required)
+       SECTION: Header / Pills
        ========================= -->
-  <script>
-    (function(){
-      // Map the visible link text (or href fragment) to the actual section IDs we just added.
-      const map = {
-        'About Me': '#about-section',
-        'Experience': '#experience-section',
-        'Skills': '#skills-section',
-        'Projects': '#projects-section'
-      };
-      document.querySelectorAll('.pill-list .pill').forEach(link=>{
-        link.addEventListener('click', function(ev){
-          const label = this.textContent.trim();
-          const target = map[label] || this.getAttribute('href'); // fallback if changed later
-          if(target && target.startsWith('#')){
-            ev.preventDefault();
-            const el = document.querySelector(target);
-            if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
-          }
-        });
-      });
-    })();
-  </script>
+  <header class="site-head" role="banner">
+    <nav class="nav" aria-label="Primary">
+      <ul class="pill-list">
+        <li><a class="pill" href="#About Me">About Me</a></li>
+        <li><a class="pill" href="#Experience">Experience</a></li>
+        <li><a class="pill" href="#Skills">Skills</a></li>
+        <li><a class="pill" href="#Projects">Projects</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- =========================
+       SECTION: Hero
+       ========================= -->
+  <section class="hero">
+    <div class="hero__inner">
+      <!-- Left: image fills 40% column, no dark borders -->
+      <figure class="hero__media">
+        <!-- Use your exact GitHub Pages path or keep local file name airobot.png -->
+        <img src="airobot.png" alt="Sachin's AI robot sitting with a tablet" />
+      </figure>
+
+      <!-- Right: mint panel with heading & intro (CTAs removed) -->
+      <div class="hero__copy">
+        <span class="eyebrow">👋 Hi, I'm Sachin</span>
+
+        <h1 class="hero__title">
+          I build AI systems that turn messy data into sharp decisions powered by code, coffee, and curiosity.
+        </h1>
+
+        <p class="hero__lede">
+          AI Engineer with 4.5+ years in the data domain, specialized in NLP, LLMs, RAG, Agents, and LLMOps.
+        </p>
+
+        <!-- CTA block intentionally removed per your request -->
+      </div>
+    </div>
+  </section>
+
+  <!-- (Optional) other sections go here -->
+
+  <!-- =========================
+       APPEND-ONLY: Scoped sections (no global overrides)
+       ========================= -->
+  <div id="sx-portfolio">
+
+    <section id="sx-about" class="sx-wrap">
+      <h2 class="sx-h2">About Me</h2>
+      <p class="sx-p">
+        I’m an AI Engineer focused on building end-to-end systems—data pipelines, NLP/LLMs, RAG, Agents, and LLMOps—
+        that turn messy data into meaningful decisions. I love clean architectures, measurable impact, and shipping fast.
+      </p>
+    </section>
+
+    <section id="sx-experience" class="sx-wrap">
+      <h2 class="sx-h2">Experience</h2>
+
+      <ul class="sx-tl">
+        <li class="sx-tl-item">
+          <div class="sx-badge">Aug 2024 – Nov 2024</div>
+          <h3 class="sx-h3">Data Engineer — Prestige Windows (UK)</h3>
+          <p class="sx-p">Automated PDF/web data extraction; Power BI dashboards; +15% revenue, +40% sales visibility.</p>
+        </li>
+
+        <li class="sx-tl-item">
+          <div class="sx-badge">Jan 2022 – Jan 2024</div>
+          <h3 class="sx-h3">Software Engineer (Data &amp; BI) — Q3 Technologies</h3>
+          <p class="sx-p">RAG chatbot for IT/science docs; tender automation with RPA/OCR/RAG; NL-to-SQL insights.</p>
+        </li>
+
+        <li class="sx-tl-item">
+          <div class="sx-badge">Aug 2018 – Dec 2020</div>
+          <h3 class="sx-h3">Software Engineer — Goalwit Technologies</h3>
+          <p class="sx-p">End-to-end SQL/ETL, matchmaking logic, and engagement models powering product growth.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="sx-skills" class="sx-wrap">
+      <h2 class="sx-h2">Skills</h2>
+      <div class="sx-badges">
+        <span class="sx-chip">NLP</span><span class="sx-chip">LLMs</span><span class="sx-chip">RAG</span>
+        <span class="sx-chip">Agents</span><span class="sx-chip">LLMOps</span><span class="sx-chip">Python</span>
+        <span class="sx-chip">SQL</span><span class="sx-chip">PyTorch</span><span class="sx-chip">TensorFlow</span>
+        <span class="sx-chip">LangChain</span><span class="sx-chip">LangGraph</span><span class="sx-chip">FAISS</span>
+        <span class="sx-chip">AWS Bedrock</span><span class="sx-chip">Power BI</span><span class="sx-chip">Docker</span>
+      </div>
+    </section>
+
+    <section id="sx-projects" class="sx-wrap">
+      <h2 class="sx-h2">Projects</h2>
+      <div class="sx-cards">
+        <article class="sx-card">
+          <h3 class="sx-h3">Medical Case Analysis RAG</h3>
+          <p class="sx-p">Bio_ClinicalBERT retrieval + MedLlama-3-8B generation; higher similarity/ROUGE/BLEU; fewer hallucinations.</p>
+          <a class="sx-link" href="#">Case Study →</a>
+        </article>
+        <article class="sx-card">
+          <h3 class="sx-h3">Social Graph &amp; Misinformation</h3>
+          <p class="sx-p">500K+ tweets; topic modeling + network analysis; identified cross-community influencers/clusters.</p>
+          <a class="sx-link" href="#">Case Study →</a>
+        </article>
+        <article class="sx-card">
+          <h3 class="sx-h3">Tender Automation (RPA + RAG)</h3>
+          <p class="sx-p">Automated extraction/categorization and Q&amp;A over docs; ~80% manual effort reduction.</p>
+          <a class="sx-link" href="#">Case Study →</a>
+        </article>
+      </div>
+    </section>
+
+  </div>
+
+  <style>
+    /* ---------- Scoped styles (prefix: sx-) ---------- */
+    #sx-portfolio { max-width: 1100px; margin: 0 auto; padding: 56px 16px; }
+    #sx-portfolio * { box-sizing: border-box; }
+
+    .sx-wrap { margin: 0 0 44px 0; }
+    .sx-h2 { font-size: clamp(22px, 3vw, 30px); margin: 0 0 16px 0; font-weight: 900; }
+    .sx-h3 { margin: 8px 0; font-weight: 800; }
+    .sx-p  { margin: 8px 0 0 0; }
+
+    .sx-tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+    .sx-badge {
+      display: inline-block; font-weight: 800; background: #ffe89a; border: 2px solid #222;
+      box-shadow: 4px 4px 0 #222; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px;
+    }
+
+    .sx-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .sx-chip {
+      background: #fff; border: 2px soli
