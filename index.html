@@ -205,92 +205,194 @@
   <!-- (Optional) other sections go here -->
 
   <!-- =========================
-       APPEND-ONLY: Scoped sections (no global overrides)
+       APPEND-ONLY: Full-bleed banded sections + window cards
        ========================= -->
-  <div id="sx-portfolio">
+  <div id="sbands">
 
-    <section id="sx-about" class="sx-wrap">
-      <h2 class="sx-h2">About Me</h2>
-      <p class="sx-p">
-        I’m an AI Engineer focused on building end-to-end systems—data pipelines, NLP/LLMs, RAG, Agents, and LLMOps—
-        that turn messy data into meaningful decisions. I love clean architectures, measurable impact, and shipping fast.
-      </p>
-    </section>
-
-    <section id="sx-experience" class="sx-wrap">
-      <h2 class="sx-h2">Experience</h2>
-
-      <ul class="sx-tl">
-        <li class="sx-tl-item">
-          <div class="sx-badge">Aug 2024 – Nov 2024</div>
-          <h3 class="sx-h3">Data Engineer — Prestige Windows (UK)</h3>
-          <p class="sx-p">Automated PDF/web data extraction; Power BI dashboards; +15% revenue, +40% sales visibility.</p>
-        </li>
-
-        <li class="sx-tl-item">
-          <div class="sx-badge">Jan 2022 – Jan 2024</div>
-          <h3 class="sx-h3">Software Engineer (Data &amp; BI) — Q3 Technologies</h3>
-          <p class="sx-p">RAG chatbot for IT/science docs; tender automation with RPA/OCR/RAG; NL-to-SQL insights.</p>
-        </li>
-
-        <li class="sx-tl-item">
-          <div class="sx-badge">Aug 2018 – Dec 2020</div>
-          <h3 class="sx-h3">Software Engineer — Goalwit Technologies</h3>
-          <p class="sx-p">End-to-end SQL/ETL, matchmaking logic, and engagement models powering product growth.</p>
-        </li>
-      </ul>
-    </section>
-
-    <section id="sx-skills" class="sx-wrap">
-      <h2 class="sx-h2">Skills</h2>
-      <div class="sx-badges">
-        <span class="sx-chip">NLP</span><span class="sx-chip">LLMs</span><span class="sx-chip">RAG</span>
-        <span class="sx-chip">Agents</span><span class="sx-chip">LLMOps</span><span class="sx-chip">Python</span>
-        <span class="sx-chip">SQL</span><span class="sx-chip">PyTorch</span><span class="sx-chip">TensorFlow</span>
-        <span class="sx-chip">LangChain</span><span class="sx-chip">LangGraph</span><span class="sx-chip">FAISS</span>
-        <span class="sx-chip">AWS Bedrock</span><span class="sx-chip">Power BI</span><span class="sx-chip">Docker</span>
+    <!-- ===== About (mint band) ===== -->
+    <section id="sb-about" class="sband sband--mint">
+      <div class="sinner">
+        <div class="seyebrow">About Me</div>
+        <h2 class="sh2">From messy data to measurable decisions</h2>
+        <p class="sp">
+          I’m an AI Engineer who ships end-to-end systems: data pipelines, NLP/LLMs, RAG, Agents, and LLMOps.
+          I care about clean architecture, reproducibility, and results that move the needle.
+        </p>
       </div>
     </section>
 
-    <section id="sx-projects" class="sx-wrap">
-      <h2 class="sx-h2">Projects</h2>
-      <div class="sx-cards">
-        <article class="sx-card">
-          <h3 class="sx-h3">Medical Case Analysis RAG</h3>
-          <p class="sx-p">Bio_ClinicalBERT retrieval + MedLlama-3-8B generation; higher similarity/ROUGE/BLEU; fewer hallucinations.</p>
-          <a class="sx-link" href="#">Case Study →</a>
-        </article>
-        <article class="sx-card">
-          <h3 class="sx-h3">Social Graph &amp; Misinformation</h3>
-          <p class="sx-p">500K+ tweets; topic modeling + network analysis; identified cross-community influencers/clusters.</p>
-          <a class="sx-link" href="#">Case Study →</a>
-        </article>
-        <article class="sx-card">
-          <h3 class="sx-h3">Tender Automation (RPA + RAG)</h3>
-          <p class="sx-p">Automated extraction/categorization and Q&amp;A over docs; ~80% manual effort reduction.</p>
-          <a class="sx-link" href="#">Case Study →</a>
-        </article>
+    <!-- ===== Experience (paper band) ===== -->
+    <section id="sb-experience" class="sband sband--paper">
+      <div class="sinner">
+        <div class="seyebrow">Experience</div>
+        <h2 class="sh2">Impact & roles</h2>
+
+        <div class="sgrid sgrid--2">
+          <!-- Window card -->
+          <article class="swin">
+            <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
+            <div class="sbody">
+              <div class="sbadge">Aug 2024 – Nov 2024</div>
+              <h3 class="sh3">Data Engineer — Prestige Windows (UK)</h3>
+              <p class="sp">Automated PDF/web extraction; Power BI DAX dashboards → +15% revenue, +40% sales visibility.</p>
+            </div>
+          </article>
+
+          <article class="swin">
+            <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
+            <div class="sbody">
+              <div class="sbadge">Jan 2022 – Jan 2024</div>
+              <h3 class="sh3">Software Engineer (Data &amp; BI) — Q3 Technologies</h3>
+              <p class="sp">RAG chatbot over IT/science docs; Tender automation (RPA/OCR/RAG); NL→SQL for sales data.</p>
+            </div>
+          </article>
+
+          <article class="swin">
+            <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
+            <div class="sbody">
+              <div class="sbadge">Aug 2018 – Dec 2020</div>
+              <h3 class="sh3">Software Engineer — Goalwit Technologies</h3>
+              <p class="sp">ETL, matchmaking logic, and engagement models; 70% faster queries; growth-ready SQL.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Skills (lavender band) ===== -->
+    <section id="sb-skills" class="sband sband--lavender">
+      <div class="sinner">
+        <div class="seyebrow">Skills</div>
+        <h2 class="sh2">Stacks I ship with</h2>
+
+        <div class="schips">
+          <span class="schip">NLP</span><span class="schip">LLMs</span><span class="schip">RAG</span>
+          <span class="schip">Agents</span><span class="schip">LLMOps</span><span class="schip">Python</span>
+          <span class="schip">SQL</span><span class="schip">PyTorch</span><span class="schip">TensorFlow</span>
+          <span class="schip">LangChain</span><span class="schip">LangGraph</span><span class="schip">FAISS</span>
+          <span class="schip">AWS Bedrock</span><span class="schip">Power BI</span><span class="schip">Docker</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Projects (lavender band with window cards grid) ===== -->
+    <section id="sb-projects" class="sband sband--lavender">
+      <div class="sinner">
+        <div class="seyebrow">Projects</div>
+        <h2 class="sh2">Selected work</h2>
+
+        <div class="sgrid sgrid--3">
+          <article class="swin">
+            <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
+            <div class="sbody">
+              <h3 class="sh3">Medical Case Analysis RAG</h3>
+              <p class="sp">Bio_ClinicalBERT retrieval + MedLlama-3-8B → higher similarity, ROUGE/BLEU; fewer hallucinations.</p>
+              <a class="slink" href="#">Case Study →</a>
+            </div>
+          </article>
+
+          <article class="swin">
+            <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
+            <div class="sbody">
+              <h3 class="sh3">Social Graph &amp; Misinformation</h3>
+              <p class="sp">500K+ tweets; topic modeling + network analysis to surface cross-community influencers.</p>
+              <a class="slink" href="#">Case Study →</a>
+            </div>
+          </article>
+
+          <article class="swin">
+            <div class="sbar"><span class="sdot"></span><span class="sdot"></span><span class="sdot"></span></div>
+            <div class="sbody">
+              <h3 class="sh3">Tender Automation (RPA + RAG)</h3>
+              <p class="sp">Doc extraction/categorization and Q&amp;A → ~80% manual effort reduction.</p>
+              <a class="slink" href="#">Case Study →</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="scta-row">
+          <a class="sbtn" href="#Projects">visit my projects…</a>
+        </div>
       </div>
     </section>
 
   </div>
 
+  <!-- ===== Scoped styles (prefix s*) ===== -->
   <style>
-    /* ---------- Scoped styles (prefix: sx-) ---------- */
-    #sx-portfolio { max-width: 1100px; margin: 0 auto; padding: 56px 16px; }
-    #sx-portfolio * { box-sizing: border-box; }
+    /* container that gives inner content width while bands go full-bleed */
+    .sinner { max-width: 1200px; margin: 0 auto; padding: 56px 16px; }
+    /* full-bleed trick */
+    .sband { position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; width: 100vw; }
+    .sband--mint { background: #6fdcbf; }
+    .sband--paper{ background: #eeebef; }
+    .sband--lavender{ background: #bda3eb; } /* tweak to taste */
 
-    .sx-wrap { margin: 0 0 44px 0; }
-    .sx-h2 { font-size: clamp(22px, 3vw, 30px); margin: 0 0 16px 0; font-weight: 900; }
-    .sx-h3 { margin: 8px 0; font-weight: 800; }
-    .sx-p  { margin: 8px 0 0 0; }
-
-    .sx-tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-    .sx-badge {
-      display: inline-block; font-weight: 800; background: #ffe89a; border: 2px solid #222;
-      box-shadow: 4px 4px 0 #222; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px;
+    .seyebrow{
+      display:inline-block; font-weight:900; background:#ffe89a; color:#222;
+      border:2px solid #222; box-shadow:6px 6px 0 #222; padding:6px 12px; border-radius:8px;
+      margin-bottom:16px;
     }
+    .sh2{ margin:0 0 12px 0; font-weight:900; letter-spacing:.2px; font-size:clamp(24px,3.2vw,44px); color:#2e2e2e; }
+    .sh3{ margin:8px 0; font-weight:800; font-size:clamp(18px,2.2vw,24px); }
+    .sp{ margin:8px 0 0 0; max-width:80ch; }
 
-    .sx-badges { display: flex; flex-wrap: wrap; gap: 10px; }
-    .sx-chip {
-      background: #fff; border: 2px soli
+    /* grid helpers */
+    .sgrid{ display:grid; gap:18px; margin-top:10px; }
+    .sgrid--2{ grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .sgrid--3{ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    /* window card */
+    .swin{
+      background:#fff; border:2px solid #222; border-radius:16px;
+      box-shadow:10px 10px 0 #222;
+      overflow:hidden;
+    }
+    .sbar{
+      display:flex; align-items:center; gap:6px; padding:10px 12px;
+      border-bottom:2px solid #222; background:#f6f6f6;
+    }
+    .sdot{ width:10px; height:10px; border:2px solid #222; border-radius:50%; display:inline-block; background:#fff; }
+    .sbody{ padding:16px 16px 18px; }
+    .sbadge{
+      display:inline-block; font-weight:800; background:#ffe89a; border:2px solid #222;
+      box-shadow:4px 4px 0 #222; padding:4px 10px; border-radius:8px; margin-bottom:8px;
+    }
+    .slink{ font-weight:800; text-decoration:underline; }
+    .scta-row{ margin-top:22px; }
+    .sbtn{
+      display:inline-block; background:#fff; border:2px solid #222; padding:10px 14px; border-radius:12px;
+      box-shadow:6px 6px 0 #222; font-weight:800; text-decoration:none; color:#2e2e2e;
+    }
+    .sbtn:active{ transform: translate(2px,2px); box-shadow:4px 4px 0 #222; }
+
+    @media (max-width: 900px){
+      .sinner{ padding: 44px 14px; }
+      .sh2{ font-size: clamp(22px, 6vw, 36px); }
+    }
+  </style>
+
+  <!-- ===== Map your existing pills (with spaces) to these bands -->
+  <script>
+    (function(){
+      const map = {
+        'About Me': '#sb-about',
+        'Experience': '#sb-experience',
+        'Skills': '#sb-skills',
+        'Projects': '#sb-projects'
+      };
+      document.querySelectorAll('.pill-list .pill').forEach(a=>{
+        a.addEventListener('click', function(e){
+          const t = map[this.textContent.trim()];
+          if(t){
+            e.preventDefault();
+            const el = document.querySelector(t);
+            if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
